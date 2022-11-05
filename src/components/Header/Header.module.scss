@@ -1,0 +1,19 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+
+  a{
+    margin: auto;
+    padding: 0 2rem;
+    color: white;
+
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+}
+.headerLogo{
+  border-radius: 50%;
+  width: 4rem;
+}
