@@ -4,13 +4,17 @@
   text-align: center;
   align-content: center;
   justify-content: center;
-
   a{
     color: white;
     margin: 0 1rem;
-
     &:hover{
       text-decoration: underline;
     }
+    &.active{
+      color: #8224e3;
+      text-decoration: underline;
+    }
+
   }
+
 }
