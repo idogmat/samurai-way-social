@@ -1,15 +1,14 @@
 import React from "react";
-import p from './Profile.module.scss'
-const Profile=()=>{
+
+import MyPosts from "./MyPosts/MyPosts";
+import ProfileInfo from "./ProfileInfo/ProfileInfo";
+
+const Profile=(props:any)=>{
     return(
-        <>
-            <div className={`${p.userInfo} test-ebt`}>
-                <div>ava</div>
-                <div>description</div>
-
-            </div>
-
-        </>
+        <div>
+            <ProfileInfo/>
+            <MyPosts posts={props.posts}/>
+        </div>
     )
 }
 export default Profile

@@ -11,19 +11,20 @@ import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 
-function App() {
+function App(props:any) {
+
     return (
         <BrowserRouter>
             <main className="app-wrapper">
                 <Header/>
                 <Menu/>
                 <div className={'content'}>
-                    <img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>
-                    <Route path={'/profile'} component={Profile}/>
-                    <Route path={'/messages'} component={Dialogs}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Settings}/>
+                    {/*<img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>*/}
+                    <Route path={'/profile'} render={()=><Profile posts={props.posts}/>}/>
+                    <Route path={'/messages'} render={()=><Dialogs dialogs={props.dialogs} messages={props.messages}/>}/>
+                    <Route path={'/news'} render={()=><News/>}/>
+                    <Route path={'/music'} render={()=><Music/>}/>
+                    <Route path={'/settings'} render={()=><Settings/>}/>
                     {/*<Route component={MyPosts}/>*/}
                 </div>
             </main>

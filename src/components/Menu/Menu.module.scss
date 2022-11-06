@@ -1,9 +1,12 @@
 .navMenu{
-  display: grid;
+  display: flex;
+  padding-top: 2rem;
+  flex-wrap: wrap;
+  flex-direction: column;
   grid-gap: 1.5rem;
   text-align: center;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   a{
     color: white;
     margin: 0 1rem;

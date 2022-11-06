@@ -1,5 +1,5 @@
 import React from "react";
-// import s from'./News.module.scss'
+import s from'./News.module.scss'
 const News=(props:any)=>{
     return(
         <div>

@@ -1,0 +1,33 @@
+.dialogs{
+ display: grid;
+  grid-template-columns: 2fr 10fr;
+  .dialogsList{
+    border-right: 1px solid #f5f7fb;
+    padding: 1rem;
+
+    .dialog{
+      border-radius: 4px;
+
+      color: black;
+      display: block;
+      padding: 15px 20px;
+      position: relative;
+      transition: all .4s;
+      cursor: default;
+      &:hover{
+        color: #6159cb;
+        text-decoration: underline;
+      }
+    &.active{
+      color: #8224e3;
+    }
+    }
+  }
+  .messages{
+    padding: 1rem;
+    .messagesList{
+
+    }
+  }
+
+}
