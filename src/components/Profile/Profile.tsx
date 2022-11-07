@@ -1,9 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+interface IProfileTypes{
+    posts:Array<object>
+}
 
-const Profile=(props:any)=>{
+const Profile:FC<IProfileTypes>=(props:IProfileTypes)=>{
     return(
         <div>
             <ProfileInfo/>

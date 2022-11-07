@@ -21,3 +21,18 @@
   }
 
 }
+.friends{
+  justify-content: space-between;
+  display: flex;
+  margin: auto;
+  text-align: center;
+  align-content: center;
+  img{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+  }
+  p{
+    margin: auto;
+  }
+}

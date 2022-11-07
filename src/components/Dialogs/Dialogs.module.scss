@@ -7,16 +7,24 @@
 
     .dialog{
       border-radius: 4px;
-
       color: black;
-      display: block;
-      padding: 15px 20px;
+      display: flex;
+      padding: .5rem 1rem;
       position: relative;
       transition: all .4s;
       cursor: default;
+      a{
+        text-align: center;
+        justify-content: center;
+        margin: auto;
+      }
       &:hover{
         color: #6159cb;
         text-decoration: underline;
+      }
+      img{
+        width: 4rem;
+        height: 4rem;
       }
     &.active{
       color: #8224e3;
@@ -25,8 +33,27 @@
   }
   .messages{
     padding: 1rem;
-    .messagesList{
 
+    .messagesList{
+    .message{
+      clear: both;
+      display: table;
+      margin: 5px 0;
+      &.yourMessage{
+        float: right;
+        background-color: deepskyblue;
+        margin-right: 20px;
+        font-size: 25px;
+        color: white;
+      }
+      &.friendMessage{
+        float: left;
+        background-color: orchid;
+        margin-left: 20px;
+        font-size: 25px;
+        color: white;
+      }
+    }
     }
   }
 

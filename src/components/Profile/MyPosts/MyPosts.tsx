@@ -1,9 +1,9 @@
 import React from "react";
 import s from './MyPosts.module.scss'
 import Post from "./Post/Post";
+import {ProfileTypes} from "../../../types/types";
 
-const MyPosts = (props:any) => {
-
+const MyPosts = (props:ProfileTypes) => {
     const mapForPosts = props.posts.map((e:any)=>{
         return <Post id={e.id} message={e.message} like={e.like}/>
     })
