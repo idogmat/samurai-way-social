@@ -2,15 +2,15 @@ import React, {FC} from "react";
 import s from'./Dialogs.module.scss'
 import DialogItem from "./Dialog/Dialog";
 import Message from "./Message/Message";
-import {DialogTypes} from "../../types/types";
-interface IDialogTypes{
+
+type IDialogTypes={
     messages:{
         dialogs:object[]
         messages:object[]
     }
 }
 
-const Dialogs:FC<IDialogTypes>=(props:DialogTypes)=>{
+const Dialogs:FC<IDialogTypes>=(props:IDialogTypes)=>{
     const mapForDialogs=props.messages.dialogs.map((e:any)=>{
         return <DialogItem name={e.name} id={e.id} img={e.img}/>
     })

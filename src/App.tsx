@@ -10,22 +10,26 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import {AppTypes} from "./types/types";//type for props
+import {stateType} from "./types/types";
 
- interface IAppProps{//settings for function component work with props
-     state: {
-         profilePage: Array<object>,
-         sidebar: {
-             friends:Array<object>
-             menu:Array<object>
-         },
-         messagesPage: {
-             dialogs: object[],
-             messages: object[]
-         }
-     }}
 
-const App:FC<IAppProps>=(props:AppTypes) => {
+ // interface IAppProps{//settings for function component work with props
+ //     state: {
+ //         profilePage: object[],
+ //         sidebar: {
+ //             friends:Array<object>
+ //             menu:Array<object>
+ //         },
+ //         messagesPage: {
+ //             dialogs: object[],
+ //             messages: object[]
+ //         }
+ //     }}
+
+type AppType ={
+    state:stateType
+}
+const App=(props:AppType) => {
 // debugger
     return (
         <BrowserRouter>

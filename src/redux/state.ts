@@ -1,22 +1,13 @@
-export type stateType = {
-    profilePage: Array<object>,
-    sidebar: {
-        friends:object[]
-        menu:object[]
-    },
-    messagesPage: {
-        dialogs: object[],
-        messages: object[]
-    }
-}
+import {stateType} from "../types/types";
+
 const state: stateType = {
-    profilePage: [{id: 1, message: 'Hi lolz ', like: 5},
-        {id: 2, message: 'Hi lolz ', like: 5},
-        {id: 3, message: 'Hi lolz ', like: 5},
-        {id: 4, message: 'Hi lolz ', like: 5},
-        {id: 5, message: 'Hi lolz ', like: 5},
-        {id: 6, message: 'Hi lolz ', like: 5},
-        {id: 7, message: 'Hi lolz ', like: 5}],
+    profilePage: [{id: 1,name: 'Yorik', message: 'Hi lolz ', like: 5},
+        {id: 2,name: 'Yorik', message: 'Hi lolz ', like: 5},
+        {id: 3,name: 'Yorik', message: 'Hi lolz ', like: 5},
+        {id: 4,name: 'Yorik', message: 'Hi lolz ', like: 5},
+        {id: 5,name: 'Yorik', message: 'Hi lolz ', like: 5},
+        {id: 6,name: 'Yorik', message: 'Hi lolz ', like: 5},
+        {id: 7,name: 'Yorik', message: 'Hi lolz ', like: 5}],
     messagesPage: {
         dialogs: [{id: 1, name: 'Jack',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
             {id: 2, name: 'Sam',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},

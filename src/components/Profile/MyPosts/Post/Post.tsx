@@ -1,7 +1,12 @@
 import React from "react";
 import s from "./Post.module.scss";
-
-const Post =(props:any)=>{
+export type PostType={
+    id:number
+    name:string
+    message:string
+    like:number
+}
+const Post =(props:PostType)=>{
     return(
         <div className={s.item}>
             <div>

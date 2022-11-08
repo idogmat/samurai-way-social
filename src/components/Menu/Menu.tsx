@@ -1,18 +1,21 @@
-import React, {FC} from "react";
+import React from "react";
 import s from './Menu.module.scss'
 import {NavLink} from "react-router-dom";
-import {FriendsTypes} from "../../types/types";
 
-interface ISidebarTypes{
-    sidebar:{
-        friends:object[]
+export type SidebarType={
+        sidebar: {
+        friends:FriendsType[]
         menu:object[]
     }
 }
-const Menu:FC<ISidebarTypes>=(props:FriendsTypes)=>{
-
-    const friendsList=props.sidebar.friends.map((e:any)=><div className={s.friends}>
-        <img src={e.img} alt={e.id}/>
+export type FriendsType={
+    id:number
+    name:string
+    img:string
+}
+const Menu=(props:SidebarType)=>{
+    const friendsList=props.sidebar.friends.map((e:FriendsType)=><div className={s.friends}>
+        <img src={e.img} alt={e.name}/>
         <p>{e.name}</p>
     </div>)
 
