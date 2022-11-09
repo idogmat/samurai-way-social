@@ -1,14 +1,20 @@
 import {stateType} from "../types/types";
+import {rerenderEntireTree} from "../render";
+
 
 const state: stateType = {
-    profilePage: [{id: 1,name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 2,name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 3,name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 4,name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 5,name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 6,name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 7,name: 'Yorik', message: 'Hi lolz ', like: 5}],
-    messagesPage: {
+    profilePage: {
+        posts:[{id: 1, name: 'Yorik', message: 'Hi lolz ', like: 5},
+                {id: 2, name: 'Yorik', message: 'Hi lolz ', like: 5},
+                {id: 3, name: 'Yorik', message: 'Hi lolz ', like: 5},
+                {id: 4, name: 'Yorik', message: 'Hi lolz ', like: 5},
+                {id: 5, name: 'Yorik', message: 'Hi lolz ', like: 5},
+                {id: 6, name: 'Yorik', message: 'Hi lolz ', like: 5},
+                {id: 7, name: 'Yorik', message: 'Hi lolz ', like: 5}
+            ],
+        newPostText:'redux handler'
+    },
+        messagesPage: {
         dialogs: [{id: 1, name: 'Jack',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
             {id: 2, name: 'Sam',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
             {id: 3, name: 'Cheed',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
@@ -16,13 +22,14 @@ const state: stateType = {
             {id: 5, name: 'Marri',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
             {id: 6, name: 'Alla',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
             {id: 7, name: 'Julce',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'}],
-        messages: [{id: 1, message: 'Hi lolz '},
-            {id: 2, message: 'Hi lolz ',type:true},
-            {id: 3, message: 'Hi lolz ',type:false},
-            {id: 4, message: 'Hi lolz ',type:true},
-            {id: 5, message: 'Hi lolz ',type:false},
-            {id: 6, message: 'Hi lolz ',type:true},
-            {id: 7, message: 'Hi lolz ',type:false}]
+        messages: [{id: 1, message: 'Hi lolz ',isYou:true},
+            {id: 2, message: 'Hi lolz ',isYou:true},
+            {id: 3, message: 'Hi lolz ',isYou:false},
+            {id: 4, message: 'Hi lolz ',isYou:true},
+            {id: 5, message: 'Hi lolz ',isYou:false},
+            {id: 6, message: 'Hi lolz ',isYou:true},
+            {id: 7, message: 'Hi lolz ',isYou:false}],
+        newPostMessage:'redux handler messages'
     },
     sidebar: {
         friends: [
@@ -51,4 +58,27 @@ const state: stateType = {
         ]
     }
 }
+export let addPost =()=>{
+    let newPost = {id: state.profilePage.posts.length, name: 'Yorik', message:state.profilePage.newPostText, like: 999999};
+    state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText=''
+    rerenderEntireTree(state)
+}
+export let updateNewPostText =(newText:string)=>{
+    state.profilePage.newPostText=newText
+    rerenderEntireTree(state)
+}
+export let addPostMessage =()=>{
+    let newPost = {id: state.messagesPage.messages.length, message: state.messagesPage.newPostMessage, isYou: true};
+    state.messagesPage.messages.push(newPost)
+    state.messagesPage.newPostMessage=''
+    rerenderEntireTree(state)
+}
+export let updateNewPostMessage =(newText:string)=>{
+    state.messagesPage.newPostMessage=newText
+    rerenderEntireTree(state)
+}
+
+// @ts-ignore
+window.state=state
 export default state

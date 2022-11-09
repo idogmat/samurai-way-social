@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './App.scss';
 import {BrowserRouter, Route} from "react-router-dom";
 import Header from "./components/Header/Header";
@@ -28,7 +28,12 @@ import {stateType} from "./types/types";
 
 type AppType ={
     state:stateType
+    updateNewPostText:Function
+    addPost:Function
+    addPostMessage:Function
+    updateNewPostMessage:Function
 }
+
 const App=(props:AppType) => {
 // debugger
     return (
@@ -39,9 +44,15 @@ const App=(props:AppType) => {
                 <div className={'content'}>
                     {/*<img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>*/}
                     <Route path={'/profile'} render={()=><Profile
-                        posts={props.state.profilePage}/>}/>
+                        profile={props.state.profilePage}
+                        addPost={props.addPost}
+                        updateNewPostText={props.updateNewPostText}/>}
+                    />
                     <Route path={'/messages'} render={()=><Dialogs
-                        messages={props.state.messagesPage}/>}/>
+                        messages={props.state.messagesPage}
+                        addPostMessage={props.addPostMessage}
+                        updateNewPostMessage={props.updateNewPostMessage}
+                    />}/>
                     <Route path={'/news'} render={()=><News/>}/>
                     <Route path={'/music'} render={()=><Music/>}/>
                     <Route path={'/settings'} render={()=><Settings/>}/>

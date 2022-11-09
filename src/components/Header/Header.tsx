@@ -6,8 +6,8 @@ const Header=()=>{
     {path:'#',point:"News Feed"},
     {path:'#',point:"Messages"}
     ]
-        const listItems = Menu.map((el) =>
-            <a href={el.path}>{el.point}</a>
+        const listItems = Menu.map((el,index) =>
+            <a key={index} href={el.path}>{el.point}</a>
     );
     return(
         <header className={`${s.header} header`}>

@@ -1,22 +1,37 @@
-import React, {FC} from "react";
+import React from "react";
 import s from'./Dialogs.module.scss'
 import DialogItem from "./Dialog/Dialog";
 import Message from "./Message/Message";
+import {DialogType, MessageType} from "../../types/types";
 
-type IDialogTypes={
+type PropsTypes={
     messages:{
-        dialogs:object[]
-        messages:object[]
+        dialogs:DialogType[]
+        messages:MessageType[]
+        newPostMessage:string
+
     }
+    addPostMessage:Function
+    updateNewPostMessage:Function
 }
 
-const Dialogs:FC<IDialogTypes>=(props:IDialogTypes)=>{
-    const mapForDialogs=props.messages.dialogs.map((e:any)=>{
-        return <DialogItem name={e.name} id={e.id} img={e.img}/>
+const Dialogs=(props:PropsTypes)=>{
+    const mapForDialogs=props.messages.dialogs.map((e,index)=>{
+        return <DialogItem key={index} name={e.name} id={e.id} img={e.img}/>
     })
-    const mapForMessages=props.messages.messages.map((e:any)=>{
-        return <Message isYou={e.type} message={e.message} id={e.id}/>
+    const mapForMessages=props.messages.messages.map((e,index)=>{
+        return <Message key={index} isYou={e.isYou} message={e.message} id={e.id}/>
     })
+
+    let newPostElement:any=React.createRef();
+    const addPost=()=> {
+        props.addPostMessage()
+
+    }
+    const onPostChangeMessage=()=>{
+        let text:string=newPostElement.current.value
+        props.updateNewPostMessage(text)
+    }
     return(
         <div className={s.dialogs}>
             <div className={s.dialogsList}>
@@ -27,7 +42,18 @@ const Dialogs:FC<IDialogTypes>=(props:IDialogTypes)=>{
                 <div className={s.messagesList}>
                     {mapForMessages}
                 </div>
+                <div className={s.sendMessageForm}>
+                    <textarea className={s.textarea}
+                              ref={newPostElement}
+                              value={props.messages.newPostMessage}
+                              onChange={onPostChangeMessage}
+                    />
+
+                    <button className={s.sendBtn} onClick={addPost}>Add post</button>
+                </div>
             </div>
+
+
         </div>
     )
 }

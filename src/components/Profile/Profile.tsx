@@ -1,16 +1,27 @@
-import React, {FC} from "react";
-
-import MyPosts, {PostsType} from "./MyPosts/MyPosts";
+import React from "react";
+import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {PostType} from "./MyPosts/Post/Post";
-type ProfileTypes= { posts:PostType[] }
+import { PostType} from "../../types/types";
+export type PropsTypes= {
+    profile: {
+        posts:PostType[]
+        newPostText:string
+    },
+    updateNewPostText:Function
+    addPost:Function
+}
 
 
-const Profile=(props:ProfileTypes)=>{
+const Profile=(props:PropsTypes)=>{
+
     return(
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.posts}/>
+            <MyPosts posts={props.profile.posts}
+                     addPost={props.addPost}
+                     newPostText={props.profile.newPostText}
+                     updateNewPostText={props.updateNewPostText}
+            />
         </div>
     )
 }
