@@ -28,13 +28,11 @@ import {StateType} from "./types/types";
 
 type AppType ={
     state:StateType
-    updateNewPostText:Function
-    addPost:Function
-    addPostMessage:Function
-    updateNewPostMessage:Function
+    dispatch:(action:any)=>void
+
 }
 
-const App:React.FC<AppType>=({state,updateNewPostText,updateNewPostMessage,addPostMessage,addPost} ) => {
+const App:React.FC<AppType>=({state,dispatch}) => {
 
     return (
         <BrowserRouter>
@@ -45,13 +43,11 @@ const App:React.FC<AppType>=({state,updateNewPostText,updateNewPostMessage,addPo
                     {/*<img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>*/}
                     <Route path={'/profile'} render={()=><Profile
                         profile={state.profilePage}
-                        addPost={addPost}
-                        updateNewPostText={updateNewPostText}/>}
+                        dispatch={dispatch}/>}
                     />
                     <Route path={'/messages'} render={()=><Dialogs
                         messages={state.messagesPage}
-                        addPostMessage={addPostMessage}
-                        updateNewPostMessage={updateNewPostMessage}
+                        dispatch={dispatch}
                     />}/>
                     <Route path={'/news'} render={()=><News/>}/>
                     <Route path={'/music'} render={()=><Music/>}/>

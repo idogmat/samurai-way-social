@@ -6,9 +6,8 @@ import {PostType} from "../../../types/types";
 
 type PostsType={
     posts:PostType[],
-    addPost:Function,
     newPostText:string,
-    updateNewPostText:Function
+    dispatch:(action: any)=>void
 }
 
 const MyPosts = (props:PostsType) => {
@@ -18,12 +17,11 @@ const MyPosts = (props:PostsType) => {
     })
     let newPostElement:any=React.createRef();
     const addPost=()=> {
-        props.addPost()
-
+        props.dispatch({type:'ADD-POST'})
     }
     const onPostChange=()=>{
         let text:string=newPostElement.current.value
-        props.updateNewPostText(text)
+        props.dispatch({type:'UPDATE-NEW-PROFILE-TEXT',text:text})
     }
 
     return (

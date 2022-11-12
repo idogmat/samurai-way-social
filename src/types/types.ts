@@ -1,10 +1,7 @@
 export type StoreType={
     _state:StateType,
     _callSubscriber:any,
-    addPost:()=>void,
-    updateNewPostText:(t:string)=>void,
-    addPostMessage:()=>void,
-    updateNewPostMessage:(t:string)=>void
+    dispatch:(action: any)=>void
     subscribe:(f:any)=>void
     getState:any
 

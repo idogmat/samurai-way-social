@@ -1,4 +1,4 @@
-import {StateType,StoreType} from "../types/types";
+import {StoreType} from "../types/types";
 
 let store:StoreType={
     _state: {
@@ -60,32 +60,39 @@ let store:StoreType={
     _callSubscriber(){
         console.log('omg')
     },
-    addPost(){
-        let newPost = {id: this._state.profilePage.posts.length, name: 'Yorik', message:this._state.profilePage.newPostText, like: 999999};
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText=''
-        this._callSubscriber(this._state)
-    },
-    updateNewPostText(newText:string){
-        this._state.profilePage.newPostText=newText
-        this._callSubscriber(this._state)
-    },
-    addPostMessage(){
-        let newPost = {id: this._state.messagesPage.messages.length, message: this._state.messagesPage.newPostMessage, isYou: true};
-        this._state.messagesPage.messages.push(newPost)
-        this._state.messagesPage.newPostMessage=''
-        this._callSubscriber(this._state)
-    },
-    updateNewPostMessage(newText:string){
-        this._state.messagesPage.newPostMessage=newText
-        this._callSubscriber(this._state)
+    getState(){
+        return this._state
     },
     subscribe(observe:any){
         this._callSubscriber = observe
     },
-    getState(){
-        return this._state
+    dispatch(action){
+        switch (action.type){
+            case 'ADD-POST':
+                let newPost = {id: this._state.profilePage.posts.length, name: 'Yorik', message:this._state.profilePage.newPostText, like: 999999};
+                this._state.profilePage.posts.push(newPost)
+                this._state.profilePage.newPostText=''
+                this._callSubscriber(this._state)
+                break;
+            case 'UPDATE-NEW-PROFILE-TEXT':
+                this._state.profilePage.newPostText=action.text
+                this._callSubscriber(this._state)
+                break;
+            case 'ADD-MESSAGE':
+                let newMessage = {id: this._state.messagesPage.messages.length, message: this._state.messagesPage.newPostMessage, isYou: true};
+                this._state.messagesPage.messages.push(newMessage)
+                this._state.messagesPage.newPostMessage=''
+                this._callSubscriber(this._state)
+                break;
+            case 'UPDATE-NEW-MESSAGE-TEXT':
+                this._state.messagesPage.newPostMessage=action.text
+                this._callSubscriber(this._state)
+                break;
+            default:
+                break
+        }
     }
+
 }
 
 // @ts-ignore

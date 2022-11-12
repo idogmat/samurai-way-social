@@ -11,8 +11,7 @@ type PropsTypes={
         newPostMessage:string
 
     }
-    addPostMessage:Function
-    updateNewPostMessage:Function
+    dispatch:(action: any)=>void
 }
 
 const Dialogs=(props:PropsTypes)=>{
@@ -25,12 +24,12 @@ const Dialogs=(props:PropsTypes)=>{
 
     let newPostElement:any=React.createRef();
     const addPost=()=> {
-        props.addPostMessage()
+        props.dispatch({type:'ADD-MESSAGE'})
 
     }
     const onPostChangeMessage=()=>{
         let text:string=newPostElement.current.value
-        props.updateNewPostMessage(text)
+        props.dispatch({type:'UPDATE-NEW-MESSAGE-TEXT',text})
     }
     return(
         <div className={s.dialogs}>

@@ -7,8 +7,7 @@ export type PropsTypes= {
         posts:PostType[]
         newPostText:string
     },
-    updateNewPostText:Function
-    addPost:Function
+    dispatch:(action: any)=>void
 }
 
 
@@ -17,10 +16,8 @@ const Profile=(props:PropsTypes)=>{
         <div>
             <ProfileInfo/>
             <MyPosts posts={props.profile.posts}
-                     addPost={props.addPost}
-                     newPostText={props.profile.newPostText}
-                     updateNewPostText={props.updateNewPostText}
-            />
+                     dispatch={props.dispatch}
+                     newPostText={props.profile.newPostText}/>
         </div>
     )
 }
