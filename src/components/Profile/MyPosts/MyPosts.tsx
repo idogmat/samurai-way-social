@@ -12,6 +12,7 @@ type PostsType={
 }
 
 const MyPosts = (props:PostsType) => {
+
     const mapForPosts = props.posts.map((e:PostType,index:number)=>{
         return <Post key={index} id={e.id} message={e.message} name={e.name} like={e.like}/>
     })

@@ -10,7 +10,7 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
-import {stateType} from "./types/types";
+import {StateType} from "./types/types";
 
 
  // interface IAppProps{//settings for function component work with props
@@ -27,31 +27,31 @@ import {stateType} from "./types/types";
  //     }}
 
 type AppType ={
-    state:stateType
+    state:StateType
     updateNewPostText:Function
     addPost:Function
     addPostMessage:Function
     updateNewPostMessage:Function
 }
 
-const App=(props:AppType) => {
-// debugger
+const App:React.FC<AppType>=({state,updateNewPostText,updateNewPostMessage,addPostMessage,addPost} ) => {
+
     return (
         <BrowserRouter>
             <main className="app-wrapper">
                 <Header/>
-                <Menu sidebar={props.state.sidebar}/>
+                <Menu sidebar={state.sidebar}/>
                 <div className={'content'}>
                     {/*<img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>*/}
                     <Route path={'/profile'} render={()=><Profile
-                        profile={props.state.profilePage}
-                        addPost={props.addPost}
-                        updateNewPostText={props.updateNewPostText}/>}
+                        profile={state.profilePage}
+                        addPost={addPost}
+                        updateNewPostText={updateNewPostText}/>}
                     />
                     <Route path={'/messages'} render={()=><Dialogs
-                        messages={props.state.messagesPage}
-                        addPostMessage={props.addPostMessage}
-                        updateNewPostMessage={props.updateNewPostMessage}
+                        messages={state.messagesPage}
+                        addPostMessage={addPostMessage}
+                        updateNewPostMessage={updateNewPostMessage}
                     />}/>
                     <Route path={'/news'} render={()=><News/>}/>
                     <Route path={'/music'} render={()=><Music/>}/>

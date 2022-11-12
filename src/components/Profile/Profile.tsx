@@ -13,7 +13,6 @@ export type PropsTypes= {
 
 
 const Profile=(props:PropsTypes)=>{
-
     return(
         <div>
             <ProfileInfo/>

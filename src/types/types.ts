@@ -1,4 +1,15 @@
-export type stateType = {
+export type StoreType={
+    _state:StateType,
+    _callSubscriber:any,
+    addPost:()=>void,
+    updateNewPostText:(t:string)=>void,
+    addPostMessage:()=>void,
+    updateNewPostMessage:(t:string)=>void
+    subscribe:(f:any)=>void
+    getState:any
+
+}
+export type StateType = {
     profilePage: {
         posts:PostType[],
         newPostText:string
