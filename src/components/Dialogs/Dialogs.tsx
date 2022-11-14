@@ -3,13 +3,13 @@ import s from'./Dialogs.module.scss'
 import DialogItem from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import {DialogType, MessageType} from "../../types/types";
-import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/state";
+import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/dialogsReducer";
 
 type PropsTypes={
     messages:{
         dialogs:DialogType[]
         messages:MessageType[]
-        newPostMessage:string
+        newMessageText:string
 
     }
     dispatch:(action: any)=>void
@@ -30,9 +30,8 @@ const Dialogs=(props:PropsTypes)=>{
         props.dispatch(action)
 
     }
-    const onPostChangeMessage=()=>{
-        let text:string=newPostElement.current.value
-        let action = updateNewMessageActionCreator(text)
+    const onPostChangeMessage=(e: React.ChangeEvent<HTMLTextAreaElement>)=>{
+        let action = updateNewMessageActionCreator(e.currentTarget.value)
         props.dispatch(action)
     }
     return(
@@ -48,8 +47,9 @@ const Dialogs=(props:PropsTypes)=>{
                 <div className={s.sendMessageForm}>
                     <textarea className={s.textarea}
                               ref={newPostElement}
-                              value={props.messages.newPostMessage}
-                              onChange={onPostChangeMessage}
+                              value={props.messages.newMessageText}
+                              onChange={(e)=>onPostChangeMessage(e)}
+                              onKeyPress={(e)=>e.key ==="Enter" && addPost()}
                     />
 
                     <button className={s.sendBtn} onClick={addPost}>Add post</button>

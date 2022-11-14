@@ -1,15 +1,15 @@
-export type StoreType={
-    _state:StateType,
-    _callSubscriber:any,
-    dispatch:(action: any)=>void
-    subscribe:(f:any)=>void
-    getState:any
+export type StoreType = {
+    _state: StateType,
+    _callSubscriber: any,
+    dispatch: (action: any) => void
+    subscribe: (f: any) => void
+    getState: any
 
 }
 export type StateType = {
     profilePage: {
-        posts:PostType[],
-        newPostText:string
+        posts: PostType[],
+        newPostText: string
     },
     sidebar: {
         friends: FriendType[]
@@ -18,39 +18,39 @@ export type StateType = {
     messagesPage: {
         dialogs: DialogType[],
         messages: MessageType[],
-        newPostMessage:string
+        newMessageText: string
     }
 
 
 }
-export type SidebarType={
+export type SidebarType = {
     friends: FriendType[]
     menu: MenuType[]
 }
 
-export type FriendType={
-    id:number
-    name:string
-    img:string
+export type FriendType = {
+    id: number
+    name: string
+    img: string
 }
 
-export type PostType={
-    id:number
-    name:string
-    message:string
-    like:number
+export type PostType = {
+    id: number
+    name: string
+    message: string
+    like: number
 }
 export type MenuType = {
     path: string,
     point: string
 }
-export type DialogType={
-    id:number
-    name:string
-    img:string
+export type DialogType = {
+    id: number
+    name: string
+    img: string
 }
-export type MessageType={
-    id:number
-    message:string
-    isYou:boolean
+export type MessageType = {
+    id: number
+    message: string
+    isYou: boolean
 }

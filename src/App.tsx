@@ -13,26 +13,26 @@ import Settings from "./components/Settings/Settings";
 import {StateType} from "./types/types";
 
 
- // interface IAppProps{//settings for function component work with props
- //     state: {
- //         profilePage: object[],
- //         sidebar: {
- //             friends:Array<object>
- //             menu:Array<object>
- //         },
- //         messagesPage: {
- //             dialogs: object[],
- //             messages: object[]
- //         }
- //     }}
+// interface IAppProps{//settings for function component work with props
+//     state: {
+//         profilePage: object[],
+//         sidebar: {
+//             friends:Array<object>
+//             menu:Array<object>
+//         },
+//         messagesPage: {
+//             dialogs: object[],
+//             messages: object[]
+//         }
+//     }}
 
-type AppType ={
-    state:StateType
-    dispatch:(action:any)=>void
+type AppType = {
+    state: StateType
+    dispatch: (action: any) => void
 
 }
 
-const App:React.FC<AppType>=({state,dispatch}) => {
+const App: React.FC<AppType> = ({state, dispatch}) => {
 
     return (
         <BrowserRouter>
@@ -41,17 +41,17 @@ const App:React.FC<AppType>=({state,dispatch}) => {
                 <Menu sidebar={state.sidebar}/>
                 <div className={'content'}>
                     {/*<img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>*/}
-                    <Route path={'/profile'} render={()=><Profile
+                    <Route path={'/profile'} render={() => <Profile
                         profile={state.profilePage}
                         dispatch={dispatch}/>}
                     />
-                    <Route path={'/messages'} render={()=><Dialogs
+                    <Route path={'/messages'} render={() => <Dialogs
                         messages={state.messagesPage}
                         dispatch={dispatch}
                     />}/>
-                    <Route path={'/news'} render={()=><News/>}/>
-                    <Route path={'/music'} render={()=><Music/>}/>
-                    <Route path={'/settings'} render={()=><Settings/>}/>
+                    <Route path={'/news'} render={() => <News/>}/>
+                    <Route path={'/music'} render={() => <Music/>}/>
+                    <Route path={'/settings'} render={() => <Settings/>}/>
                     {/*<Route component={MyPosts}/>*/}
                 </div>
             </main>

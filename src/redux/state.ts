@@ -1,12 +1,11 @@
 import {StoreType} from "../types/types";
-const UPDATE_NEW_PROFILE_TEXT = 'UPDATE-NEW-PROFILE-TEXT';
-const ADD_POST = 'ADD-POST';
-const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
-let store:StoreType={
+import {profileReducer} from "./profileReducer";
+import {dialogsReducer} from "./dialogsReducer";
+
+let store: StoreType = {
     _state: {
         profilePage: {
-            posts:[{id: 1, name: 'Yorik', message: 'Hi lolz ', like: 5},
+            posts: [{id: 1, name: 'Yorik', message: 'Hi lolz ', like: 5},
                 {id: 2, name: 'Yorik', message: 'Hi lolz ', like: 5},
                 {id: 3, name: 'Yorik', message: 'Hi lolz ', like: 5},
                 {id: 4, name: 'Yorik', message: 'Hi lolz ', like: 5},
@@ -14,24 +13,52 @@ let store:StoreType={
                 {id: 6, name: 'Yorik', message: 'Hi lolz ', like: 5},
                 {id: 7, name: 'Yorik', message: 'Hi lolz ', like: 5}
             ],
-            newPostText:'redux handler'
+            newPostText: 'redux handler'
         },
         messagesPage: {
-            dialogs: [{id: 1, name: 'Jack',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
-                {id: 2, name: 'Sam',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
-                {id: 3, name: 'Cheed',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
-                {id: 4, name: 'Yorik',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
-                {id: 5, name: 'Marri',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
-                {id: 6, name: 'Alla',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'},
-                {id: 7, name: 'Julce',img:'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'}],
-            messages: [{id: 1, message: 'Hi lolz ',isYou:true},
-                {id: 2, message: 'Hi lolz ',isYou:true},
-                {id: 3, message: 'Hi lolz ',isYou:false},
-                {id: 4, message: 'Hi lolz ',isYou:true},
-                {id: 5, message: 'Hi lolz ',isYou:false},
-                {id: 6, message: 'Hi lolz ',isYou:true},
-                {id: 7, message: 'Hi lolz ',isYou:false}],
-            newPostMessage:'redux handler messages'
+            dialogs: [{
+                id: 1,
+                name: 'Jack',
+                img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
+            },
+                {
+                    id: 2,
+                    name: 'Sam',
+                    img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
+                },
+                {
+                    id: 3,
+                    name: 'Cheed',
+                    img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
+                },
+                {
+                    id: 4,
+                    name: 'Yorik',
+                    img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
+                },
+                {
+                    id: 5,
+                    name: 'Marri',
+                    img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
+                },
+                {
+                    id: 6,
+                    name: 'Alla',
+                    img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
+                },
+                {
+                    id: 7,
+                    name: 'Julce',
+                    img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
+                }],
+            messages: [{id: 1, message: 'Hi lolz ', isYou: true},
+                {id: 2, message: 'Hi lolz ', isYou: true},
+                {id: 3, message: 'Hi lolz ', isYou: false},
+                {id: 4, message: 'Hi lolz ', isYou: true},
+                {id: 5, message: 'Hi lolz ', isYou: false},
+                {id: 6, message: 'Hi lolz ', isYou: true},
+                {id: 7, message: 'Hi lolz ', isYou: false}],
+            newMessageText: 'redux handler messages'
         },
         sidebar: {
             friends: [
@@ -60,49 +87,24 @@ let store:StoreType={
             ]
         }
     },
-    _callSubscriber(){
+    _callSubscriber() {
         console.log('omg')
     },
-    getState(){
+    getState() {
         return this._state
     },
-    subscribe(observe:any){
+    subscribe(observe: any) {
         this._callSubscriber = observe
     },
-    dispatch(action){
-        switch (action.type){
-            case 'ADD-POST':
-                let newPost = {id: this._state.profilePage.posts.length, name: 'Yorik', message:this._state.profilePage.newPostText, like: 999999};
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText=''
-                this._callSubscriber(this._state)
-                break;
-            case 'UPDATE-NEW-PROFILE-TEXT':
-                this._state.profilePage.newPostText=action.text
-                this._callSubscriber(this._state)
-                break;
-            case 'ADD-MESSAGE':
-                let newMessage = {id: this._state.messagesPage.messages.length, message: this._state.messagesPage.newPostMessage, isYou: true};
-                this._state.messagesPage.messages.push(newMessage)
-                this._state.messagesPage.newPostMessage=''
-                this._callSubscriber(this._state)
-                break;
-            case 'UPDATE-NEW-MESSAGE-TEXT':
-                this._state.messagesPage.newPostMessage=action.text
-                this._callSubscriber(this._state)
-                break;
-            default:
-                break
-        }
+    dispatch(action) {
+        profileReducer(this._state.profilePage, action)
+        dialogsReducer(this._state.messagesPage, action)
+        this._callSubscriber(this._state)
     }
-
 }
-export const addPostActionCreator =()=> ({type: ADD_POST})
-export const updateNewPostTextActionCreator =(text:string)=>({type: UPDATE_NEW_PROFILE_TEXT, text:text})
-export const addMessageActionCreator =()=>({type: ADD_MESSAGE})
-export const updateNewMessageActionCreator =(text:string)=>({type: UPDATE_NEW_MESSAGE_TEXT, text:text})
+
 
 
 // @ts-ignore
-window.store=store
+window.store = store
 export default store
