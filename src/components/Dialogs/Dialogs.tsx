@@ -3,6 +3,7 @@ import s from'./Dialogs.module.scss'
 import DialogItem from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import {DialogType, MessageType} from "../../types/types";
+import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/state";
 
 type PropsTypes={
     messages:{
@@ -22,14 +23,17 @@ const Dialogs=(props:PropsTypes)=>{
         return <Message key={index} isYou={e.isYou} message={e.message} id={e.id}/>
     })
 
+
     let newPostElement:any=React.createRef();
     const addPost=()=> {
-        props.dispatch({type:'ADD-MESSAGE'})
+        let action = addMessageActionCreator()
+        props.dispatch(action)
 
     }
     const onPostChangeMessage=()=>{
         let text:string=newPostElement.current.value
-        props.dispatch({type:'UPDATE-NEW-MESSAGE-TEXT',text})
+        let action = updateNewMessageActionCreator(text)
+        props.dispatch(action)
     }
     return(
         <div className={s.dialogs}>

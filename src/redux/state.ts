@@ -1,5 +1,8 @@
 import {StoreType} from "../types/types";
-
+const UPDATE_NEW_PROFILE_TEXT = 'UPDATE-NEW-PROFILE-TEXT';
+const ADD_POST = 'ADD-POST';
+const ADD_MESSAGE = 'ADD-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 let store:StoreType={
     _state: {
         profilePage: {
@@ -94,6 +97,11 @@ let store:StoreType={
     }
 
 }
+export const addPostActionCreator =()=> ({type: ADD_POST})
+export const updateNewPostTextActionCreator =(text:string)=>({type: UPDATE_NEW_PROFILE_TEXT, text:text})
+export const addMessageActionCreator =()=>({type: ADD_MESSAGE})
+export const updateNewMessageActionCreator =(text:string)=>({type: UPDATE_NEW_MESSAGE_TEXT, text:text})
+
 
 // @ts-ignore
 window.store=store
