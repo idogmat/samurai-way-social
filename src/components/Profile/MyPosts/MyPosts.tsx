@@ -16,13 +16,13 @@ const MyPosts = (props: PostsType) => {
     const mapForPosts = props.posts.map((e: PostType, index: number) => {
         return <Post key={index} id={e.id} message={e.message} name={e.name} like={e.like}/>
     })
-    let newPostElement: any = React.createRef();
+
     const addPost = () => {
         let action = addPostActionCreator()
         props.dispatch(action)
     }
-    const onPostChange = () => {
-        let text: string = newPostElement.current.value
+    const onPostChange = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
+        let text: string = e.currentTarget.value
         let action = updateNewPostTextActionCreator(text)
         props.dispatch(action)
     }
@@ -33,9 +33,8 @@ const MyPosts = (props: PostsType) => {
             <div>
                 <div className={s.sendMessageForm}>
                     <textarea className={s.textarea}
-                              ref={newPostElement}
                               value={props.newPostText}
-                              onChange={onPostChange}
+                              onChange={(e)=>onPostChange(e)}
                               onKeyPress={(e) => e.key === "Enter" && addPost()}
                     />
 

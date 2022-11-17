@@ -12,20 +12,6 @@ import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import {StateType} from "./types/types";
 
-
-// interface IAppProps{//settings for function component work with props
-//     state: {
-//         profilePage: object[],
-//         sidebar: {
-//             friends:Array<object>
-//             menu:Array<object>
-//         },
-//         messagesPage: {
-//             dialogs: object[],
-//             messages: object[]
-//         }
-//     }}
-
 type AppType = {
     state: StateType
     dispatch: (action: any) => void

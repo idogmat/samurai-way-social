@@ -1,8 +1,8 @@
 export type StoreType = {
     _state: StateType,
-    _callSubscriber: any,
+    _callSubscriber: (s:StateType)=>void,
     dispatch: (action: any) => void
-    subscribe: (f: any) => void
+    subscribe: (s:(s:StateType)=>void) => void
     getState: any
 
 }

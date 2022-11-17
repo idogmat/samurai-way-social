@@ -1,6 +1,6 @@
-import {StoreType} from "../types/types";
-import {profileReducer} from "./profileReducer";
-import {dialogsReducer} from "./dialogsReducer";
+import {StateType, StoreType} from "../types/types";
+import profileReducer from "./profileReducer";
+import dialogsReducer from "./dialogsReducer";
 
 let store: StoreType = {
     _state: {
@@ -93,12 +93,12 @@ let store: StoreType = {
     getState() {
         return this._state
     },
-    subscribe(observe: any) {
+    subscribe(observe) {
         this._callSubscriber = observe
     },
     dispatch(action) {
-        profileReducer(this._state.profilePage, action)
-        dialogsReducer(this._state.messagesPage, action)
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.messagesPage = dialogsReducer(this._state.messagesPage, action)
         this._callSubscriber(this._state)
     }
 }
