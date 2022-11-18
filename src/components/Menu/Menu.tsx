@@ -8,6 +8,7 @@ type PropsType={
 }
 
 const Menu= (props:PropsType)=>{
+
     const friendsList=props.sidebar.friends.map((e:FriendType,index:number)=><div key={index} className={s.friends}>
         <img src={e.img} alt={e.name}/>
         <p>{e.name}</p>

@@ -1,5 +1,5 @@
-import React from "react";
-import MyPosts from "./MyPosts/MyPosts";
+import React, {FC} from "react";
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import { PostType} from "../../types/types";
 export type PropsTypes= {
@@ -11,13 +11,13 @@ export type PropsTypes= {
 }
 
 
-const Profile=(props:PropsTypes)=>{
+const Profile:FC<PropsTypes>=({profile,dispatch})=>{
     return(
         <div>
             <ProfileInfo/>
-            <MyPosts posts={props.profile.posts}
-                     dispatch={props.dispatch}
-                     newPostText={props.profile.newPostText}/>
+            <MyPostsContainer posts={profile.posts}
+                     dispatch={dispatch}
+                     newPostText={profile.newPostText}/>
         </div>
     )
 }
