@@ -5,20 +5,20 @@ import Message from "./Message/Message";
 import {DialogType, MessageType} from "../../types/types";
 
 type PropsTypes={
-    messages:{
-        dialogs:DialogType[]
-        messages:MessageType[]
-        newMessageText:string
-    }
-    onPostChangeMessage:(e: React.ChangeEvent<HTMLTextAreaElement>)=>void
-    addPost:()=>void
+    dialogs:DialogType[]
+    messages:MessageType[]
+    newMessageText:string
+
+    inputChangeMessage:(e: React.ChangeEvent<HTMLTextAreaElement>)=>void
+    addMessage:()=>void
 }
 
 const Dialogs=(props:PropsTypes)=>{
-    const mapForMessages=props.messages.messages.map((e,index)=>{
+
+    const mapForMessages=props.messages.map((e,index)=>{
         return <Message key={index} isYou={e.isYou} message={e.message} id={e.id}/>
     })
-    const mapForDialogs=props.messages.dialogs.map((e,index)=>{
+    const mapForDialogs=props.dialogs.map((e,index)=>{
         return <DialogItem key={index} name={e.name} id={e.id} img={e.img}/>
     })
     let newPostElement:any=React.createRef();
@@ -35,12 +35,12 @@ const Dialogs=(props:PropsTypes)=>{
                 <div className={s.sendMessageForm}>
                     <textarea className={s.textarea}
                               ref={newPostElement}
-                              value={props.messages.newMessageText}
-                              onChange={props.onPostChangeMessage}
-                              onKeyPress={(e)=>e.key ==="Enter" && props.addPost()}
+                              value={props.newMessageText}
+                              onChange={props.inputChangeMessage}
+                              onKeyPress={(e)=>e.key ==="Enter" && props.addMessage()}
                     />
 
-                    <button className={s.sendBtn} onClick={props.addPost}>Add post</button>
+                    <button className={s.sendBtn} onClick={props.addMessage}>Add post</button>
                 </div>
             </div>
         </div>

@@ -11,9 +11,9 @@ type MyPostsPropsType={
 }
 
 const MyPosts:FC<MyPostsPropsType> = ({posts,
-                                          onPostChange,
                                           newPostText,
-                                          addPost}) => {
+    onPostChange,addPost
+                                          }) => {
     const mapForPosts = posts.map((e: PostType, index: number) => {
         return <Post key={index} id={e.id} message={e.message} name={e.name} like={e.like}/>
     })

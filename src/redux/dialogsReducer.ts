@@ -58,16 +58,18 @@ let initialState = {
         newMessageText: 'redux handler messages'
 
 }
-const dialogsReducer=(state:MessagesPageType=initialState,action:ActionType)=>{
+const dialogsReducer=(state:MessagesPageType=initialState,action:ActionType):MessagesPageType=>{
     switch (action.type){
         case ADD_MESSAGE:
+            let newState1 = {...state,message: [...state.messages]}
             let newMessage = {id: state.messages.length, message:state.newMessageText, isYou: true};
-            state.messages.push(newMessage)
-            state.newMessageText=''
-            return state
+            newState1.messages.push(newMessage)
+            newState1.newMessageText=''
+            return newState1
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText=action.text
-            return state
+            let newState2 =  {...state}
+            newState2.newMessageText=action.text
+            return newState2
         default:
             return state
     }

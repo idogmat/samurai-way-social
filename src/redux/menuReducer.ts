@@ -29,6 +29,7 @@ const initialState:SidebarType= {
         menu: [
             {path: '/profile', point: "Profile"},
             {path: '/messages', point: "Messages"},
+            {path: '/users', point: "Users"},
             {path: '/news', point: "News"},
             {path: '/music', point: "Music"},
             {path: '/settings', point: "Settings"}
@@ -36,6 +37,6 @@ const initialState:SidebarType= {
     }
 }
 const menuReducer=(state=initialState,action:null)=>{
-            return state
+            return {...state}
 }
 export default menuReducer

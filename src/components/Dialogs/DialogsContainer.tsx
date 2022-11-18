@@ -1,28 +1,29 @@
-import React, {FC} from "react";
+import React from "react";
 import {DialogType, MessageType} from "../../types/types";
+import {connect} from "react-redux";
 import {addMessageActionCreator, updateNewMessageActionCreator} from "../../redux/dialogsReducer";
 import Dialogs from "./Dialogs";
+import {AppStateType} from "../../redux/redux-store";
 
-type DialogsPropsTypes={
-    messages:{
-        dialogs:DialogType[]
-        messages:MessageType[]
-        newMessageText:string
-    }
-    dispatch:(action: any)=>void
+
+type MapStatePropsType={
+    dialogs:DialogType[]
+    messages:MessageType[]
+    newMessageText:string
 }
-const DialogsContainer:FC<DialogsPropsTypes>=({messages,dispatch})=>{
-    const addPost=()=> {
-        let action = addMessageActionCreator()
-        dispatch(action)
-    }
-    const onPostChangeMessage=(e: React.ChangeEvent<HTMLTextAreaElement>)=>{
-        let action = updateNewMessageActionCreator(e.currentTarget.value)
-        dispatch(action)
-    }
-    return <Dialogs messages={messages}
-                    onPostChangeMessage={onPostChangeMessage}
-                    addPost={addPost}/>
+let mapStateProps=(state:AppStateType):MapStatePropsType=>{
+    return state.dialogsReducer
 }
+let mapDispatchToProps=(dispatch:(action: any)=>void)=> {
+    return {
+        addMessage: () => {
+            dispatch(addMessageActionCreator())
+        },
+        inputChangeMessage: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            dispatch(updateNewMessageActionCreator(e.currentTarget.value))
+        }
+    }
+}
+const DialogsContainer = connect(mapStateProps,mapDispatchToProps)(Dialogs)
+
 export default DialogsContainer
-

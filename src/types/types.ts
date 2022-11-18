@@ -20,8 +20,6 @@ export type StateType = {
         messages: MessageType[],
         newMessageText: string
     }
-
-
 }
 export type SidebarType = {
     friends: FriendType[]
