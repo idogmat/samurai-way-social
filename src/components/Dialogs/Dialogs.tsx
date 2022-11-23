@@ -8,8 +8,7 @@ type PropsTypes={
     dialogs:DialogType[]
     messages:MessageType[]
     newMessageText:string
-
-    inputChangeMessage:(e: React.ChangeEvent<HTMLTextAreaElement>)=>void
+    updateNewMessage:(e: string)=>void
     addMessage:()=>void
 }
 
@@ -36,7 +35,7 @@ const Dialogs=(props:PropsTypes)=>{
                     <textarea className={s.textarea}
                               ref={newPostElement}
                               value={props.newMessageText}
-                              onChange={props.inputChangeMessage}
+                              onChange={(e)=>props.updateNewMessage(e.currentTarget.value)}
                               onKeyPress={(e)=>e.key ==="Enter" && props.addMessage()}
                     />
 

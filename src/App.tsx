@@ -2,14 +2,13 @@ import React from 'react';
 import './App.scss';
 import  {Route} from "react-router-dom";
 import Header from "./components/Header/Header";
-import Profile from "./components/Profile/Profile";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import MenuContainer from "./components/Menu/MenuContainer";
-import Users from "./components/Users/Users";
 import UsersContainer from "./components/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 export const MyContext = React.createContext<any>(null)
 
@@ -20,7 +19,7 @@ const App = () => {
             <MenuContainer/>
             <div className={'content'}>
                 {/*<img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>*/}
-                <Route path={'/profile'} render={() => <Profile/>}/>
+                <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/>
                 <Route path={'/messages'} render={() => <DialogsContainer/>}/>
 
                 <Route path={'/news'} render={() =>

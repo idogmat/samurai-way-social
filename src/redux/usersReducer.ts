@@ -1,30 +1,43 @@
-import users from "../components/Users/Users";
-
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const SET_TOTAL_USERS = 'SET-TOTAL-USERS'
+const SET_FETCHING = 'SET-FETCHING'
 
 export type UserType = {
     id: number,
-    fullName: string,
+    name: string,
     status: string,
     followed: boolean,
-    photoUrl:string
-    location: {
-        city: string,
-        country: string
+    photos:{
+        small:string
+        large:string
     }
+
 }
 export type UsersType = {
-    users: UserType[]
+    users: UserType[],
+    pageSize:number,
+    totalUsersCount:number
+    currentPage:number
+    isFetching:boolean
 }
 export type ActionUserType = {
     type: string,
     userId?: number
     users?: any
+    currentPage?:number
+    totalUsers?:number
+    fetch?:boolean
+
 }
 const initialState: UsersType = {
-    users: []
+    users: [],
+    pageSize:5,
+    totalUsersCount:0,
+    currentPage:1,
+    isFetching:false
 }
 
 
@@ -51,13 +64,22 @@ const usersReducer = (state = initialState, action: ActionUserType) => {
                 })
             }
         case SET_USERS:
-            return {...state, users:[...state.users,...action.users]}
+            return {...state, users:[...action.users]}
+        case SET_CURRENT_PAGE:
+            return{...state,currentPage:action.currentPage}
+        case SET_TOTAL_USERS:
+            return{...state,totalUsersCount:action.totalUsers}
+        case SET_FETCHING:
+            return{...state,isFetching:action.fetch}
         default:
             return state
     }
 }
-export const followAC = (userId: number) => ({type: FOLLOW, userId})
-export const unfollowAC = (userId: number) => ({type: UNFOLLOW, userId})
-export const setUsers =(users:UserType[])=>({type:SET_USERS,users})
+export const follow = (userId: number) => ({type: FOLLOW, userId})as const
+export const unFollow = (userId: number) => ({type: UNFOLLOW, userId})as const
+export const setUsers =(users:UserType[])=>({type:SET_USERS,users})as const
+export const setCurrentPage =(currentPage:number)=>({type:SET_CURRENT_PAGE,currentPage})as const
+export const setTotalUsersCount =(totalUsers:number)=>({type:SET_TOTAL_USERS,totalUsers})as const
+export const setFetching =(fetch:boolean)=>({type:SET_FETCHING,fetch})as const
 
 export default usersReducer

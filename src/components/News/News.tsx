@@ -16,6 +16,7 @@ const News=(props:any)=>{
             .then(response => response.json())
             .then(json => setData(json))
     }
+    //захерачь сюда useMemo()
     return(
         <MyContext.Consumer>
             { (value)=>(

@@ -6,13 +6,13 @@ import Post from "./Post/Post";
 type MyPostsPropsType={
     posts: PostType[],
     newPostText: string,
-    onPostChange:(e: React.ChangeEvent<HTMLTextAreaElement>)=>void
+    updateNewPostText:(e: string)=>void
     addPost:()=>void
 }
 
 const MyPosts:FC<MyPostsPropsType> = ({posts,
                                           newPostText,
-    onPostChange,addPost
+                                          updateNewPostText,addPost
                                           }) => {
     const mapForPosts = posts.map((e: PostType, index: number) => {
         return <Post key={index} id={e.id} message={e.message} name={e.name} like={e.like}/>
@@ -24,7 +24,7 @@ const MyPosts:FC<MyPostsPropsType> = ({posts,
                 <div className={s.sendMessageForm}>
                     <textarea className={s.textarea}
                               value={newPostText}
-                              onChange={(e)=>onPostChange(e)}
+                              onChange={(e)=>updateNewPostText(e.currentTarget.value)}
                               onKeyPress={(e) => e.key === "Enter" && addPost()}
                     />
 
