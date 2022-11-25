@@ -9,13 +9,14 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import MenuContainer from "./components/Menu/MenuContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 export const MyContext = React.createContext<any>(null)
 
 const App = () => {
     return (
         <main className="app-wrapper">
-            <Header/>
+            <HeaderContainer/>
             <MenuContainer/>
             <div className={'content'}>
                 {/*<img src="https://www.extremetech.com/wp-content/uploads/2013/11/eso1348a-crop-640x353.jpg" alt=""/>*/}

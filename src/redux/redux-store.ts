@@ -3,12 +3,14 @@ import dialogsReducer from "./dialogsReducer";
 import profileReducer from "./profileReducer";
 import menuReducer from "./menuReducer";
 import usersReducer from "./usersReducer";
+import authReducer from "./authReducer";
 
 let rootReducer=combineReducers({
     dialogsReducer,
     profileReducer,
     menuReducer,
-    usersReducer
+    usersReducer,
+    authReducer
 })
 let store=createStore(rootReducer)
 

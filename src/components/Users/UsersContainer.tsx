@@ -8,7 +8,7 @@ import {
     UsersType,
     UserType
 } from "../../redux/usersReducer";
-import React, {Component} from "react";
+import React, {Component, useEffect} from "react";
 import axios from "axios";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
@@ -27,48 +27,47 @@ type PropsType = {
     isFetching: boolean
 }
 
-class UsersComponent extends Component<PropsType> {
+const UsersComponent =React.memo((props:PropsType)=> {
 
-    componentDidMount() {
-        this.props.setFetching(false)
+    useEffect(()=> {
+        props.setFetching(false)
         console.log('I\'m inside on DOM')
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${props.currentPage}&count=${props.pageSize}`)
             .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-                this.props.setFetching(true)
+                props.setUsers(response.data.items)
+                props.setTotalUsersCount(response.data.totalCount)
+                props.setFetching(true)
+            })
+    },[])
+
+    const onPageChanged = (p: number) => {
+        props.setFetching(false)
+        props.setCurrentPage(p)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${props.pageSize}`)
+            .then(response => {
+                props.setUsers(response.data.items)
+                props.setFetching(true)
             })
     }
 
-    onPageChanged = (p: number) => {
-        this.props.setFetching(false)
-        this.props.setCurrentPage(p)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setFetching(true)
-            })
-    }
-
-    render() {
         return <>
-            {this.props.isFetching ?
-                <Users users={this.props.users}
-                       follow={this.props.follow}
-                       unFollow={this.props.unFollow}
-                       setCurrentPage={this.props.setCurrentPage}
-                       currentPage={this.props.currentPage}
-                       totalUsersCount={this.props.totalUsersCount}
-                       pageSize={this.props.pageSize}
-                       onPageChanged={this.onPageChanged}
+            {props.isFetching ?
+                <Users users={props.users}
+                       follow={props.follow}
+                       unFollow={props.unFollow}
+                       setCurrentPage={props.setCurrentPage}
+                       currentPage={props.currentPage}
+                       totalUsersCount={props.totalUsersCount}
+                       pageSize={props.pageSize}
+                       onPageChanged={onPageChanged}
 
 
                 />
                 : <Preloader/>
             }
         </>
-    }
-}
+    })
+
 
 
 let mapStateToProps = (state: AppStateType): UsersType => {
