@@ -6,6 +6,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {AuthUserType, logoutUser, setFetching, setUserData} from "../../redux/authReducer";
+import {authMe} from "../../api/api";
 type UserLoginTypeProps={
     id: number|null
     email: string|null
@@ -28,11 +29,9 @@ const HeaderContainer=(props:UserLoginTypeProps)=>{
 
     useEffect(()=> {
         props.setFetching(false)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`,{
-            withCredentials:true//
-        })
+        authMe()
             .then(response => {
-                props.setUserData({...response.data.data})
+                props.setUserData({...response.data})
                 props.setFetching(true)
             }).catch(err=>{
                 throw new Error(err)
