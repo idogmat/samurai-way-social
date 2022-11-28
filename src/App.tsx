@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
 import  {Route} from "react-router-dom";
-import Header from "./components/Header/Header";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Settings from "./components/Settings/Settings";

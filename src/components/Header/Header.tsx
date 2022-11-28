@@ -1,15 +1,15 @@
-import React from "react";
+import React, {useCallback} from "react";
 import s from './Header.module.scss'
 import {NavLink} from "react-router-dom";
 type HeaderPropsType={
     name:string|null
-    fetch:boolean
     logoutUser:()=>void
 }
-const Header=(props:HeaderPropsType)=>{
-    const logout=()=>{
+const Header=React.memo((props:HeaderPropsType)=>{
+    console.log('header render')
+    const logout=useCallback(()=>{
         props.logoutUser()
-    }
+    },[props.name])
     // const Menu =[
     // {path:'/profile',point:"Home"},
     // {path:'/login',point:"Login"},
@@ -34,5 +34,5 @@ const Header=(props:HeaderPropsType)=>{
             </div>
         </header>
     )
-}
+})
 export default Header

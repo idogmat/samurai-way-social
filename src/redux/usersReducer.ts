@@ -1,3 +1,6 @@
+import {followersAPI, usersAPI} from "../api/api";
+import {Dispatch} from "redux";
+
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
@@ -5,6 +8,7 @@ const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS = 'SET-TOTAL-USERS'
 const SET_FETCHING = 'SET-FETCHING'
 const SET_FOLLOWING_USER = 'SET-FOLLOWING-USER'
+
 type FollowType = ReturnType<typeof follow>
 type unFollowType = ReturnType<typeof unFollow>
 type setUsersType = ReturnType<typeof setUsers>
@@ -105,5 +109,43 @@ export const setFollowDisable = (userId: number, isFetching: boolean) => ({
     isFetching
 }) as const
 
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(setFetching(false))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then((response: any) => {
+            dispatch(setUsers(response.data.items))
+            dispatch(setTotalUsersCount(response.data.totalCount))
+            dispatch(setFetching(true))
+        })
+}
+export const setFollowThunkCreator = (userId: number, type: 'follow' | 'unfollow') => (dispatch: Dispatch) => {
+    switch (type) {
+        case "follow":
+            dispatch(setFollowDisable(userId, false))
+            followersAPI.followRequestUser(userId)
+                .then(response => {
+                    response.data.resultCode === 0 && dispatch(follow(userId))
+                }).catch(err => {
+                console.log(err)
+            }).finally(() => {
+                dispatch(setFollowDisable(userId, false))
+            })
+            break;
+        case "unfollow":
+            dispatch(setFollowDisable(userId, true))
+            followersAPI.unfollowRequestUser(userId)
+                .then(response => {
+                    response.data.resultCode === 0 && dispatch(unFollow(userId))
+                }).catch(err => {
+                console.log(err)
+            }).finally(() => {
+                dispatch(setFollowDisable(userId, false))
+            })
+            break;
+        default:
+            break;
+    }
+}
 
 export default usersReducer

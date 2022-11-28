@@ -1,8 +1,6 @@
 import React from "react";
 import p from './ProfileInfo.module.scss'
-
 import Preloader from "../../Preloader/Preloader";
-import {ProfileMSTPType, ProfilePropsType} from "../ProfileContainer";
 import {ProfileUserType} from "../../../redux/profileReducer";
 
 

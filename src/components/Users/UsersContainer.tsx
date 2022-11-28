@@ -1,18 +1,17 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    follow,
-    setCurrentPage, setFetching, setFollowDisable, setTotalUsersCount,
+    follow, getUsersThunkCreator,
+    setCurrentPage, setFetching, setFollowDisable, setFollowThunkCreator, setTotalUsersCount,
     setUsers,
     unFollow,
     UsersType,
     UserType
 } from "../../redux/usersReducer";
 import React, { useEffect} from "react";
-
-import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 import {usersAPI} from "../../api/api";
+import Users from "./Users";
 
 type PropsType = {
     users: UserType[]
@@ -28,29 +27,20 @@ type PropsType = {
     currentPage: number
     isFetching: boolean
     followingInProgress:[]
+    getUsersThunkCreator:(s:number,v:number)=>void
+    setFollowThunkCreator:(s:number,type: 'follow' | 'unfollow')=>void
+
+
 }
 
 const UsersComponent =React.memo((props:PropsType)=> {
-
+    console.log('Users container')
     useEffect(()=> {
-        props.setFetching(false)
-        console.log('I\'m inside on DOM')
-        usersAPI.getUsers(props.currentPage,props.pageSize)
-            .then(response => {
-                props.setUsers(response.data.items)
-                props.setTotalUsersCount(response.data.totalCount)
-                props.setFetching(true)
-            })
+         props.getUsersThunkCreator(props.currentPage,props.pageSize)
     },[])
 
     const onPageChanged = (p: number) => {
-        props.setFetching(false)
-        props.setCurrentPage(p)
-        usersAPI.getCurrentPage(p,props.pageSize)
-            .then(response => {
-                props.setUsers(response.items)
-                props.setFetching(true)
-            })
+        props.getUsersThunkCreator(p,props.pageSize)
     }
         return <>
             {props.isFetching ?
@@ -63,8 +53,8 @@ const UsersComponent =React.memo((props:PropsType)=> {
                        pageSize={props.pageSize}
                        followingInProgress={props.followingInProgress}
                        setFollowDisable={props.setFollowDisable}
-
                        onPageChanged={onPageChanged}
+                       setFollowThunkCreator={props.setFollowThunkCreator}
                 />
                 : <Preloader/>
             }
@@ -107,6 +97,8 @@ const UsersContainer = connect(mapStateToProps,  {
     setCurrentPage,
     setTotalUsersCount,
     setFetching,
-    setFollowDisable
+    setFollowDisable,
+    getUsersThunkCreator,
+    setFollowThunkCreator
 })(UsersComponent)
 export default UsersContainer;

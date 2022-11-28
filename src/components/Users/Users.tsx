@@ -1,9 +1,7 @@
 import React from 'react';
 import {UserType} from "../../redux/usersReducer";
 import s from './Users.module.scss'
-import defaultUserPhoto from '../../assets/defaultUserPhoto.png'
-import {NavLink} from "react-router-dom";
-import {followersAPI} from "../../api/api";
+import User from "./User";
 
 type PropsType = {
     users: UserType[]
@@ -11,54 +9,27 @@ type PropsType = {
     unFollow: (userId: number) => void
     setCurrentPage: (s: number) => void
     onPageChanged: (p: number) => void
-    setFollowDisable:(u:number,f:boolean)=>void
+    setFollowDisable: (u: number, f: boolean) => void
+    setFollowThunkCreator:(s:number,type: 'follow' | 'unfollow')=>void
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    followingInProgress:[]
+    followingInProgress: []
 
 }
-const Users = (props: PropsType) => {
+const Users = React.memo((props: PropsType) => {
+    console.log('Users')
     const mappedUsers = props.users.map((el, i) => {
-            return <div key={i+el.name}>
-                <NavLink to={'/profile/' + el.id}>
-                    <img className={s.userPhoto} src={!!el.photos.small ? el.photos.small
-                        : defaultUserPhoto} alt={el.photos.small}/>
-                </NavLink>
-                <p>{el.name}</p>
-                <p>{el.status}</p>
-                {el.followed ? <button disabled={props.followingInProgress.some(id=>id===el.id)} onClick={() => {
-                        props.setFollowDisable(el.id,true)
-                        followersAPI.unfollowRequestUser(el.id)
-                            .then(response => {
-                                console.log(response)
-                                response.data.resultCode === 0 && props.unFollow(el.id)
-                            }).catch(err=>{
-                            console.log(err)
-                        }).finally(()=>{
-                            props.setFollowDisable(el.id,false)
-                        })
+        return <User key={el.id+i+el.name}
+                     user={el}
+                     followingInProgress={props.followingInProgress}
+                     setFollowDisable={props.setFollowDisable}
+                     follow={props.follow}
+                     unFollow={props.unFollow}
+                     setFollowThunkCreator={props.setFollowThunkCreator}/>
+    })
 
-                    }}>followed</button>
-                    : <button disabled={props.followingInProgress.some(id=>id===el.id)} onClick={() => {
-                        props.setFollowDisable(el.id,true)
-                        followersAPI.followRequestUser(el.id)
-                            .then(response => {
-                                console.log(response)
-                                response.data.resultCode === 0 && props.follow(el.id)
-                            }).catch(err=>{
-                            console.log(err)
-                        }).finally(()=>{
-                            props.setFollowDisable(el.id,false)
-                        })
-
-                    }}>unfollowed</button>
-                }
-            </div>
-        }
-    )
-
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 4350
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 4350;
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
@@ -73,6 +44,6 @@ const Users = (props: PropsType) => {
             {mappedUsers}
         </div>
     );
-};
+})
 
 export default Users;

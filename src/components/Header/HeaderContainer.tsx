@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import s from './Header.module.scss'
 import {NavLink} from "react-router-dom";
 import Header from "./Header";
@@ -11,14 +11,15 @@ type UserLoginTypeProps={
     id: number|null
     email: string|null
     login: string|null
-    isFetching:boolean,
+
 
     setUserData:(user: AuthUserType) =>void
     logoutUser:()=>void
     setFetching:(s:boolean)=>void
 }
 
-const HeaderContainer=(props:UserLoginTypeProps)=>{
+const HeaderContainer=React.memo((props:UserLoginTypeProps)=>{
+    console.log('headerCont render')
     // debugger
     // const Menu =[
     // {path:'/profile',point:"Home"},
@@ -37,8 +38,8 @@ const HeaderContainer=(props:UserLoginTypeProps)=>{
                 throw new Error(err)
         })
     },[])
-    return <Header name={props.login} fetch={props.isFetching} logoutUser={props.logoutUser}/>
-}
+    return <Header name={props.login} logoutUser={props.logoutUser}/>
+})
 
 let mapDispatchToProps=(state:AppStateType)=>{
 

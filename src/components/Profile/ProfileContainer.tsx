@@ -1,9 +1,9 @@
-import React, {ComponentType, FunctionComponent, useEffect} from 'react';
+import React, { useEffect} from 'react';
 
 import Profile from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
-import {ProfilePageType, ProfileUserType, setUserProfile} from "../../redux/profileReducer";
+import { ProfileUserType, setUserProfile} from "../../redux/profileReducer";
 import {AppStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 type PathParamsType={
