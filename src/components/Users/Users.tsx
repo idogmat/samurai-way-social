@@ -5,11 +5,7 @@ import User from "./User";
 
 type PropsType = {
     users: UserType[]
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    setCurrentPage: (s: number) => void
     onPageChanged: (p: number) => void
-    setFollowDisable: (u: number, f: boolean) => void
     setFollowThunkCreator:(s:number,type: 'follow' | 'unfollow')=>void
     pageSize: number,
     totalUsersCount: number,
@@ -23,9 +19,6 @@ const Users = React.memo((props: PropsType) => {
         return <User key={el.id+i+el.name}
                      user={el}
                      followingInProgress={props.followingInProgress}
-                     setFollowDisable={props.setFollowDisable}
-                     follow={props.follow}
-                     unFollow={props.unFollow}
                      setFollowThunkCreator={props.setFollowThunkCreator}/>
     })
 

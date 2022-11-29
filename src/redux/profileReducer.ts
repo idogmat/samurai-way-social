@@ -1,4 +1,7 @@
 import {PostType} from "../types/types";
+import {Dispatch} from "redux";
+import {authMe, usersAPI} from "../api/api";
+import axios from "axios";
 
 const UPDATE_NEW_PROFILE_TEXT = 'UPDATE-NEW-PROFILE-TEXT';
 const ADD_PROFILE_POST = 'ADD-PROFILE-POST';
@@ -71,4 +74,14 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionTyp
 export const addPost = () => ({type: ADD_PROFILE_POST})
 export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_PROFILE_TEXT, text: text})
 export const setUserProfile = (profile: ProfileUserType) => ({type: SET_USER_PROFILE, profile})
+export const getProfileUserThunkCreator=(userId:string)=>{
+   return (dispatch:Dispatch)=> {
+        if (!userId) userId = '2'
+        usersAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfile(response.data))
+            })
+    }
+}
+
 export default profileReducer

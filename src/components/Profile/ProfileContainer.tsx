@@ -1,40 +1,44 @@
 import React, { useEffect} from 'react';
-
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import { ProfileUserType, setUserProfile} from "../../redux/profileReducer";
+import { getProfileUserThunkCreator, ProfileUserType} from "../../redux/profileReducer";
 import {AppStateType} from "../../redux/redux-store";
-import {RouteComponentProps, withRouter} from "react-router-dom";
+import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import AuthRedirectComponent from "../../hoc/AuthRedirectComponent";
 type PathParamsType={
     userId:string
 }
-
 type MapDispatchToPropsType = {
-    setUserProfile:(s:ProfileUserType)=>void
+    getProfileUserThunkCreator:(s:string)=>void
 }
 export type ProfileMSTPType = {
     currentProfile:ProfileUserType
+    isAuth:boolean
+
 }
 export type ProfileOwnPropsType=ProfileMSTPType & MapDispatchToPropsType
 export type ProfilePropsType= RouteComponentProps<PathParamsType> & ProfileOwnPropsType
 
-const ProfileContainer =(props:ProfilePropsType)=> {
-    useEffect(()=> {
-        console.log('I\'m inside on DOM')
-        let userId=props.match.params.userId
-        if(!userId) userId ='2'
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
-                props.setUserProfile(response.data)
-            })
-    },[])
-
-        return (
-                <Profile {...props}/>
-        );
+const ProfileComponent =(props:ProfilePropsType)=> {
+    useEffect(() => {
+        let userId = props.match.params.userId
+        props.getProfileUserThunkCreator(userId)
+    }, [])
+    if (props.isAuth) {
+        return <Profile {...props}/>
+    } else {
+        return <Redirect to={'/login'}/>
     }
+}
+// AuthRedirectComponent(ProfileComponent)
 
-let mapStateToProps=(state:AppStateType):ProfileMSTPType=>state.profileReducer
-let withUrlDataContainerComponent=withRouter(ProfileContainer)
-export default connect(mapStateToProps,{setUserProfile})(withUrlDataContainerComponent);
+let mapStateToProps=(state:AppStateType):ProfileMSTPType=> {
+    return {
+        currentProfile: state.profileReducer,
+        isAuth: state.authReducer.isAuth
+    }
+}
+let withUrlDataContainerComponent=withRouter(ProfileComponent)
+const ProfileContainer =  connect(mapStateToProps,{
+    getProfileUserThunkCreator})(withUrlDataContainerComponent);
+export default ProfileContainer

@@ -5,14 +5,14 @@ import Header from "./Header";
 import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {AuthUserType, logoutUser, setFetching, setUserData} from "../../redux/authReducer";
+import {AuthUserType, logoutUser, setFetching, setUserData, setUserThunkCreator} from "../../redux/authReducer";
 import {authMe} from "../../api/api";
 type UserLoginTypeProps={
     id: number|null
     email: string|null
     login: string|null
 
-
+    setUserThunkCreator:() =>void
     setUserData:(user: AuthUserType) =>void
     logoutUser:()=>void
     setFetching:(s:boolean)=>void
@@ -20,23 +20,8 @@ type UserLoginTypeProps={
 
 const HeaderContainer=React.memo((props:UserLoginTypeProps)=>{
     console.log('headerCont render')
-    // debugger
-    // const Menu =[
-    // {path:'/profile',point:"Home"},
-    // {path:'/login',point:"Login"},
-    // ]
-    //     const listItems = Menu.map((el,index) =>
-    //         <NavLink key={index} to={el.path}>{el.point}</NavLink>);
-
     useEffect(()=> {
-        props.setFetching(false)
-        authMe()
-            .then(response => {
-                props.setUserData({...response.data})
-                props.setFetching(true)
-            }).catch(err=>{
-                throw new Error(err)
-        })
+        props.setUserThunkCreator()
     },[])
     return <Header name={props.login} logoutUser={props.logoutUser}/>
 })
@@ -48,5 +33,6 @@ let mapDispatchToProps=(state:AppStateType)=>{
 export default connect(mapDispatchToProps,{
     setUserData,
     setFetching,
-    logoutUser
+    logoutUser,
+    setUserThunkCreator
 })(HeaderContainer)

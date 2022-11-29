@@ -12,9 +12,15 @@ type MapStatePropsType={
     dialogs:DialogType[]
     messages:MessageType[]
     newMessageText:string
+    isAuth:boolean
 }
 let mapStateProps=(state:AppStateType):MapStatePropsType=>{
-    return state.dialogsReducer
+    return {
+        dialogs: state.dialogsReducer.dialogs,
+        messages: state.dialogsReducer.messages,
+        newMessageText:state.dialogsReducer.newMessageText,
+        isAuth: state.authReducer.isAuth
+    }
 }
 // let mapDispatchToProps=(dispatch:(action: any)=>void)=> {
 //     return {

@@ -9,11 +9,10 @@ const instance = axios.create({
 });
 export const usersAPI = {
     getUsers: (currentPage: number, pageSize: number) => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        return instance.get(`/users?page=${currentPage}&count=${pageSize}`)
     },
-    getCurrentPage: (p: number, pageSize: number) => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${pageSize}`)
-            .then(response => response.data)
+    getProfile:(userId:string)=>{
+        return instance.get(`/profile/${userId}`)
     }
 }
 

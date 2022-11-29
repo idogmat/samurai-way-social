@@ -3,8 +3,10 @@ import s from'./Dialogs.module.scss'
 import DialogItem from "./Dialog/Dialog";
 import Message from "./Message/Message";
 import {DialogType, MessageType} from "../../types/types";
+import {Redirect} from "react-router-dom";
 
 type PropsTypes={
+    isAuth:boolean
     dialogs:DialogType[]
     messages:MessageType[]
     newMessageText:string
@@ -21,28 +23,34 @@ const Dialogs=(props:PropsTypes)=>{
         return <DialogItem key={index} name={e.name} id={e.id} img={e.img}/>
     })
     let newPostElement:any=React.createRef();
-    return(
-        <div className={s.dialogs}>
-            <div className={s.dialogsList}>
-                {mapForDialogs}
 
-            </div>
-            <div className={s.messages}>
-                <div className={s.messagesList}>
-                    {mapForMessages}
+
+    if(props.isAuth) {
+        return (
+            <div className={s.dialogs}>
+                <div className={s.dialogsList}>
+                    {mapForDialogs}
+
                 </div>
-                <div className={s.sendMessageForm}>
+                <div className={s.messages}>
+                    <div className={s.messagesList}>
+                        {mapForMessages}
+                    </div>
+                    <div className={s.sendMessageForm}>
                     <textarea className={s.textarea}
                               ref={newPostElement}
                               value={props.newMessageText}
-                              onChange={(e)=>props.updateNewMessage(e.currentTarget.value)}
-                              onKeyPress={(e)=>e.key ==="Enter" && props.addMessage()}
+                              onChange={(e) => props.updateNewMessage(e.currentTarget.value)}
+                              onKeyPress={(e) => e.key === "Enter" && props.addMessage()}
                     />
 
-                    <button className={s.sendBtn} onClick={props.addMessage}>Add post</button>
+                        <button className={s.sendBtn} onClick={props.addMessage}>Add post</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    } else{
+       return <Redirect to={'/login'}/>
+    }
 }
 export default Dialogs

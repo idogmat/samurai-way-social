@@ -1,66 +1,54 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {
-    follow, getUsersThunkCreator,
-    setCurrentPage, setFetching, setFollowDisable, setFollowThunkCreator, setTotalUsersCount,
+    getUsersThunkCreator,
+    setCurrentPage, setFetching, setFollowThunkCreator, setTotalUsersCount,
     setUsers,
-    unFollow,
     UsersType,
     UserType
 } from "../../redux/usersReducer";
-import React, { useEffect} from "react";
+import React, {useEffect} from "react";
 import Preloader from "../Preloader/Preloader";
-import {usersAPI} from "../../api/api";
 import Users from "./Users";
 
 type PropsType = {
     users: UserType[]
-    follow: (userId: number) => void
-    unFollow: (userId: number) => void
     setUsers: (s: UserType[]) => void
     setCurrentPage: (s: number) => void
     setTotalUsersCount: (s: number) => void
-    setFetching:(f:boolean)=>void
-    setFollowDisable:(u:number,f:boolean)=>void
+    setFetching: (f: boolean) => void
     pageSize: number,
     totalUsersCount: number,
     currentPage: number
     isFetching: boolean
-    followingInProgress:[]
-    getUsersThunkCreator:(s:number,v:number)=>void
-    setFollowThunkCreator:(s:number,type: 'follow' | 'unfollow')=>void
-
-
+    followingInProgress: []
+    getUsersThunkCreator: (s: number, v: number) => void
+    setFollowThunkCreator: (s: number, type: 'follow' | 'unfollow') => void
 }
 
-const UsersComponent =React.memo((props:PropsType)=> {
+const UsersComponent = React.memo((props: PropsType) => {
     console.log('Users container')
-    useEffect(()=> {
-         props.getUsersThunkCreator(props.currentPage,props.pageSize)
-    },[])
+    useEffect(() => {
+        props.getUsersThunkCreator(props.currentPage, props.pageSize)
+    }, [])
 
     const onPageChanged = (p: number) => {
-        props.getUsersThunkCreator(p,props.pageSize)
+        props.getUsersThunkCreator(p, props.pageSize)
     }
-        return <>
-            {props.isFetching ?
-                <Users users={props.users}
-                       follow={props.follow}
-                       unFollow={props.unFollow}
-                       setCurrentPage={props.setCurrentPage}
-                       currentPage={props.currentPage}
-                       totalUsersCount={props.totalUsersCount}
-                       pageSize={props.pageSize}
-                       followingInProgress={props.followingInProgress}
-                       setFollowDisable={props.setFollowDisable}
-                       onPageChanged={onPageChanged}
-                       setFollowThunkCreator={props.setFollowThunkCreator}
-                />
-                : <Preloader/>
-            }
-        </>
-    })
-
+    return <>
+        {props.isFetching ?
+            <Users users={props.users}
+                   currentPage={props.currentPage}
+                   totalUsersCount={props.totalUsersCount}
+                   pageSize={props.pageSize}
+                   followingInProgress={props.followingInProgress}
+                   onPageChanged={onPageChanged}
+                   setFollowThunkCreator={props.setFollowThunkCreator}
+            />
+            : <Preloader/>
+        }
+    </>
+})
 
 
 let mapStateToProps = (state: AppStateType): UsersType => {
@@ -90,14 +78,11 @@ let mapStateToProps = (state: AppStateType): UsersType => {
 // }
 // const UsersContainer=connect(mapStateToProps,mapDispatchToProps)(Users)
 
-const UsersContainer = connect(mapStateToProps,  {
-    follow,
-    unFollow,
+const UsersContainer = connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
     setFetching,
-    setFollowDisable,
     getUsersThunkCreator,
     setFollowThunkCreator
 })(UsersComponent)

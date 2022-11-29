@@ -4,8 +4,8 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {ProfilePropsType} from "./ProfileContainer";
 
 
-const Profile=(props:ProfilePropsType)=>{
-    return(
+const Profile = (props: ProfilePropsType) => {
+    return (
         <div>
             <ProfileInfo user={props.currentProfile}/>
             <MyPostsContainer/>
