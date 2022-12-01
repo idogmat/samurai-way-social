@@ -1,4 +1,4 @@
-import {followersAPI, usersAPI} from "../api/api";
+import { usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 
 const FOLLOW = 'FOLLOW'
@@ -124,7 +124,7 @@ export const setFollowThunkCreator = (userId: number, type: 'follow' | 'unfollow
     switch (type) {
         case "follow":
             dispatch(setFollowDisable(userId, false))
-            followersAPI.followRequestUser(userId)
+            usersAPI.followRequestUser(userId)
                 .then(response => {
                     response.data.resultCode === 0 && dispatch(follow(userId))
                 }).catch(err => {
@@ -135,7 +135,7 @@ export const setFollowThunkCreator = (userId: number, type: 'follow' | 'unfollow
             break;
         case "unfollow":
             dispatch(setFollowDisable(userId, true))
-            followersAPI.unfollowRequestUser(userId)
+            usersAPI.unfollowRequestUser(userId)
                 .then(response => {
                     response.data.resultCode === 0 && dispatch(unFollow(userId))
                 }).catch(err => {

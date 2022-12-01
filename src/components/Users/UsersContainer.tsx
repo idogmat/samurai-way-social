@@ -11,6 +11,7 @@ import React, {useEffect} from "react";
 import Preloader from "../Preloader/Preloader";
 import Users from "./Users";
 import {withAuthRedirect} from "../../hoc/AuthRedirectComponent";
+import {compose} from "redux";
 
 type PropsType = {
     users: UserType[]
@@ -51,40 +52,17 @@ const UsersComponent = React.memo((props: PropsType) => {
     </>
 })
 
-
 let mapStateToProps = (state: AppStateType): UsersType => {
     return state.usersReducer
 }
-// let mapDispatchToProps = (dispatch: (action: ActionUserType) => void) => {
-//     return {
-//         follow: (userId: number) => {
-//             dispatch(followAC(userId))
-//         },
-//         unFollow: (userId: number) => {
-//             dispatch(unfollowAC(userId))
-//         },
-//         setUsers: (users: UserType[]) => {
-//             dispatch(setUsers(users))
-//         },
-//         setCurrentPage: (page: number) => {
-//             dispatch(setCurrentPageAC(page))
-//         },
-//         setTotalUsersCount: (totalUsers: number) => {
-//             dispatch(setTotalUsersCountAC(totalUsers))
-//         },
-//         setFetching: (fetch: boolean) => {
-//             dispatch(setFetchingAC(fetch))
-//         }
-//     }
-// }
-// const UsersContainer=connect(mapStateToProps,mapDispatchToProps)(Users)
-
-const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
-    setUsers,
-    setCurrentPage,
-    setTotalUsersCount,
-    setFetching,
-    getUsersThunkCreator,
-    setFollowThunkCreator
-})(UsersComponent))
-export default UsersContainer;
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        setUsers,
+        setCurrentPage,
+        setTotalUsersCount,
+        setFetching,
+        getUsersThunkCreator,
+        setFollowThunkCreator
+    }),
+    withAuthRedirect
+)(UsersComponent)

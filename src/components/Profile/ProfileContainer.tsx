@@ -2,15 +2,16 @@ import React, { useEffect} from 'react';
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
-    addPost,
+    addPost, getProfileStatusThunkCreator,
     getProfileUserThunkCreator,
     ProfilePageType,
-    ProfileUserType,
-    updateNewPostText
+
+    updateNewPostText, updateProfileStatusThunkCreator
 } from "../../redux/profileReducer";
 import {AppStateType} from "../../redux/redux-store";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/AuthRedirectComponent";
+import {compose} from "redux";
 
 type PathParamsType={
     userId:string
@@ -18,6 +19,8 @@ type PathParamsType={
 export type MapDispatchToPropsType = {
     getProfileUserThunkCreator:(s:string)=>void
     updateNewPostText:(e: string)=>void
+    getProfileStatusThunkCreator:(e: string)=>void
+    updateProfileStatusThunkCreator:(e: string)=>void
     addPost:()=>void
 }
 
@@ -28,7 +31,8 @@ const ProfileComponent =(props:ProfilePropsType)=> {
     useEffect(() => {
         let userId = props.match.params.userId
         props.getProfileUserThunkCreator(userId)
-    }, [])
+        props.getProfileStatusThunkCreator(userId)
+    }, [props.match.params.userId])
         return <Profile {...props}/>
 
 }
@@ -36,11 +40,16 @@ const ProfileComponent =(props:ProfilePropsType)=> {
 
 let mapStateToProps=(state:AppStateType):ProfilePageType=> state.profileReducer
 
-let withUrlDataContainerComponent=withRouter(ProfileComponent)
-const ProfileContainer =  withAuthRedirect(
+
+export default compose<React.ComponentType>(
     connect(
         mapStateToProps,{
-    getProfileUserThunkCreator,
+            getProfileUserThunkCreator,
             updateNewPostText,
-            addPost})(withUrlDataContainerComponent));
-export default ProfileContainer
+            addPost,getProfileStatusThunkCreator,updateProfileStatusThunkCreator}),
+    withRouter,
+    // withAuthRedirect
+)(ProfileComponent)
+
+
+

@@ -10,7 +10,7 @@ type PlaceholderType={
 
 
 }
-const News=(props:any)=>{
+const News=()=>{
     let [data,setData]=useState([])
     const loadData=()=>{
         fetch('https://jsonplaceholder.typicode.com/todos')
