@@ -1,14 +1,16 @@
 import React from "react";
-import MyPostsContainer from "./MyPosts/MyPostsContainer";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {ProfilePropsType} from "./ProfileContainer";
+import {MapDispatchToPropsType} from "./ProfileContainer";
+import MyPosts from "./MyPosts/MyPosts";
+import {ProfilePageType} from "../../redux/profileReducer";
 
 
-const Profile = (props: ProfilePropsType) => {
+const Profile = (props:ProfilePageType&MapDispatchToPropsType) => {
     return (
         <div>
             <ProfileInfo user={props.currentProfile}/>
-            <MyPostsContainer/>
+            <MyPosts updateNewPostText={props.updateNewPostText} addPost={props.addPost} posts={props.posts}
+                     newPostText={props.newPostText}/>
         </div>
     )
 }

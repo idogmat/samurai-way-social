@@ -53,7 +53,11 @@ let initialState = {
 const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
     switch (action.type) {
         case ADD_PROFILE_POST:
-            return [{id: state.posts.length, name: 'Yorik', message: state.newPostText, like: 999999}, ...state.posts]
+            return {
+                ...state,
+                newPostText:'',
+                posts: [{id: state.posts.length, name: 'Yorik', message: state.newPostText, like: 999999}, ...state.posts]
+            }
         case UPDATE_NEW_PROFILE_TEXT:
             return {
                 ...state,

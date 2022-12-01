@@ -3,7 +3,7 @@ import s from "./MyPosts.module.scss";
 import {PostType} from "../../../types/types";
 import Post from "./Post/Post";
 
-type MyPostsPropsType={
+export type MyPostsPropsType={
     posts: PostType[],
     newPostText: string,
     updateNewPostText:(e: string)=>void

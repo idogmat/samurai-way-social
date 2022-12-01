@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { MyContext } from "../../App";
+import {withAuthRedirect} from "../../hoc/AuthRedirectComponent";
 // import s from'./News.module.scss'
 type PlaceholderType={
     userId: number,
@@ -31,4 +32,4 @@ const News=(props:any)=>{
         </MyContext.Consumer>
     )
 }
-export default News
+export default withAuthRedirect(News)

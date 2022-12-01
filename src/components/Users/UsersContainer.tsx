@@ -10,6 +10,7 @@ import {
 import React, {useEffect} from "react";
 import Preloader from "../Preloader/Preloader";
 import Users from "./Users";
+import {withAuthRedirect} from "../../hoc/AuthRedirectComponent";
 
 type PropsType = {
     users: UserType[]
@@ -78,12 +79,12 @@ let mapStateToProps = (state: AppStateType): UsersType => {
 // }
 // const UsersContainer=connect(mapStateToProps,mapDispatchToProps)(Users)
 
-const UsersContainer = connect(mapStateToProps, {
+const UsersContainer = withAuthRedirect(connect(mapStateToProps, {
     setUsers,
     setCurrentPage,
     setTotalUsersCount,
     setFetching,
     getUsersThunkCreator,
     setFollowThunkCreator
-})(UsersComponent)
+})(UsersComponent))
 export default UsersContainer;

@@ -5,12 +5,11 @@ import {ProfileUserType} from "../../../redux/profileReducer";
 import defaultPhoto from '../../../assets/defaultUserPhoto.png'
 
 const ProfileInfo = (props:{user:ProfileUserType}) => {
-
     return (
         <>{
-            props.user ?
+            !!props.user ?
                 <div className={`${p.userInfo} test-ebt`}>
-                    {/*<img className={p.userPhoto} src={props.user ? props.user.photos.small : defaultPhoto} alt="photos.small"/>*/}
+                    <img className={p.userPhoto} src={defaultPhoto} alt="photos.small"/>
                     <h3>{props.user.fullName}</h3>
                     <p>{props.user.aboutMe}</p>
                 </div>
