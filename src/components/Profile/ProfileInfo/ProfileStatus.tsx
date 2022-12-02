@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './ProfileInfo.module.scss'
 
 type PropsType = {
@@ -6,7 +6,7 @@ type PropsType = {
     updateProfileStatusThunkCreator: (s: string) => void
 }
 const ProfileStatus = (props: PropsType) => {
-    const [editMode, setEditMode] = useState(false)
+    const [editMode, setEditMode] = useState(true)
     const [status, setStatus] = useState(props.status)
     const inputRef = React.createRef<any>()
     const editModeForStatus=()=>{
@@ -24,9 +24,9 @@ const ProfileStatus = (props: PropsType) => {
     return (
         <div>
             {editMode
-                ? <div><span onDoubleClick={editModeForStatus}>{status}</span></div>
-                : <div><input ref={inputRef} autoFocus onChange={changeInput} onBlur={changeStatus} value={status}/>
-                    <button>change</button>
+                ? <div><span onDoubleClick={editModeForStatus}>{props.status||'text'}</span></div>
+                : <div><input ref={inputRef} autoFocus onChange={changeInput} value={status}/>
+                    <button  onClick={changeStatus} >change</button>
                 </div>
             }
         </div>

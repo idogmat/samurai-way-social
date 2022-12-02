@@ -16,7 +16,6 @@ const ProfileInfo = (props: ProfileInfoType) => {
     return (
         <>{
             !!props.user ?
-
                 <div className={`${p.userInfo} test-ebt`}>
                     <ProfileStatus updateProfileStatusThunkCreator={props.updateProfileStatusThunkCreator}
                                    status={props.status}/>

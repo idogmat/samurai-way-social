@@ -1,12 +1,9 @@
-import React, {useCallback, useEffect} from "react";
-import s from './Header.module.scss'
-import {NavLink} from "react-router-dom";
+import React, {useEffect} from "react";
 import Header from "./Header";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {AuthUserType, logoutUser, setFetching, setUserData, setUserThunkCreator} from "../../redux/authReducer";
-import {authMe} from "../../api/api";
+
 type UserLoginTypeProps={
     id: number|null
     email: string|null

@@ -32,7 +32,7 @@ const ProfileComponent =(props:ProfilePropsType)=> {
         let userId = props.match.params.userId
         props.getProfileUserThunkCreator(userId)
         props.getProfileStatusThunkCreator(userId)
-    }, [props.match.params.userId])
+    }, [])
         return <Profile {...props}/>
 
 }

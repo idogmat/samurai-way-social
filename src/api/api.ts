@@ -27,14 +27,21 @@ export const profileAPI = {
         return instance.get(`/profile/status/${userId}`)
     },
     updateStatus:(status:string)=>{
-        return instance.put(`/profile/status`, {status: status})
+        return instance.put(`/profile/status/`, status)
+    }
+}
+export const loginAPI={
+    login: (user:any) => {
+        return instance.post(`https://social-network.samuraijs.com/api/1.0/auth/me`,user)
+    },
+    logout: () => {
+        return instance.delete(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+    },
+    authMe: () => {
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`,)
+            .then(response => response.data)
     }
 }
 
-
-export const authMe = () => {
-    return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`,)
-        .then(response => response.data)
-}
 
 

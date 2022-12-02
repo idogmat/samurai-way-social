@@ -1,6 +1,5 @@
 import {Dispatch} from "redux";
-import {authMe} from "../api/api";
-import {ProfileUserType} from "./profileReducer";
+import {loginAPI} from "../api/api";
 
 const SET_USER_DATA = 'SET-USER-DATA'
 const SET_FETCHING = 'SET-FETCHING'
@@ -59,7 +58,7 @@ export const setFetching =(fetch:boolean)=>({type:SET_FETCHING,fetch})as const
 export const logoutUser =()=>({type:LOGOUT_USER})as const
 export const setUserThunkCreator = () => (dispatch:Dispatch)=>{
     dispatch(setFetching(false))
-    authMe()
+    loginAPI.authMe()
         .then(response => {
             dispatch(setUserData({...response.data}))
             dispatch(setFetching(true))

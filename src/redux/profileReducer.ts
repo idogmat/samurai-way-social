@@ -51,7 +51,7 @@ let initialState = {
         {id: 7, name: 'Yorik', message: 'Hi lolz ', like: 5}
     ],
     currentProfile: null,
-    profileStatus:'text',
+    profileStatus:'',
     newPostText: 'redux handler'
 }
 const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
@@ -90,16 +90,16 @@ export const setProfileStatus = (status: string) => ({type: SET_USER_STATUS, sta
 export const getProfileStatusThunkCreator=(userId:string)=>(dispatch: Dispatch) => {
         profileAPI.getStatus(userId)
             .then(response => {
-                console.log(response)
-                dispatch(setProfileStatus(response.data))
+                console.log(response,'GET')
+                    dispatch(setProfileStatus(response.data))
             }).catch(e=>console.warn(e))
 }
 export const updateProfileStatusThunkCreator=(status:string)=> (dispatch: Dispatch) => {
         profileAPI.updateStatus(status)
             .then(response => {
-                console.log(response)
+                console.log(response,'PUT')
                 if(response.data.resultCode === 0) {
-                    dispatch(setProfileStatus(response.data))
+                    dispatch(setProfileStatus(status))
                 }
             }).catch(e=>console.warn(e))
 
