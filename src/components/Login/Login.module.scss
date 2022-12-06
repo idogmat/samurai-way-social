@@ -1,7 +1,36 @@
-.loginForm{
+.loginForm {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: auto;
+}
+
+.inputField {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+}
+
+.sendBtn {
+  display: flex;
+  justify-content: center;
+  background: #06c;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  margin: auto;
+  min-height: 2rem;
+  padding: 1rem;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+}
+.sendBtn:hover{
+  opacity: .8;
 }

@@ -5,7 +5,11 @@ const SET_USER_DATA = 'SET-USER-DATA'
 const SET_FETCHING = 'SET-FETCHING'
 const LOGOUT_USER = 'LOGOUT-USER'
 
-
+export type UserLoginType={
+    email:string
+    password:string
+    rememberMe:boolean
+}
 
 export type AuthUserStateType = {
     id: number|null
@@ -66,6 +70,13 @@ export const setUserThunkCreator = () => (dispatch:Dispatch)=>{
         throw new Error(err)
     })
 }
-
+export const loginUserTC=(user:UserLoginType)=>(dispatch:Dispatch)=>{
+    loginAPI.login(user)
+        .then(res=>{
+            if(res.data.resultCode === 0){
+                dispatch(setUserData(res.data.data))
+            }
+        })
+}
 
 export default authReducer

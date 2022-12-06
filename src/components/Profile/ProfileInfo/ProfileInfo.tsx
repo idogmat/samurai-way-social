@@ -2,7 +2,7 @@ import React from "react";
 import p from './ProfileInfo.module.scss'
 import Preloader from "../../Preloader/Preloader";
 import ProfileStatus from './ProfileStatus'
-import {ProfileUserType, updateProfileStatusThunkCreator} from "../../../redux/profileReducer";
+import {ProfileUserType} from "../../../redux/profileReducer";
 import defaultPhoto from '../../../assets/defaultUserPhoto.png'
 
 type ProfileInfoType = {

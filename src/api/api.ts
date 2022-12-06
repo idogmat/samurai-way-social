@@ -1,4 +1,5 @@
 import axios from "axios";
+import {UserLoginType} from "../redux/authReducer";
 
 const key = 'f267d306-2e26-49e4-8305-d841bf1e2061'
 
@@ -27,12 +28,12 @@ export const profileAPI = {
         return instance.get(`/profile/status/${userId}`)
     },
     updateStatus:(status:string)=>{
-        return instance.put(`/profile/status/`, status)
+        return instance.put(`/profile/status`, {status})
     }
 }
 export const loginAPI={
-    login: (user:any) => {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/auth/me`,user)
+    login: (user:UserLoginType) => {
+        return instance.post(`https://social-network.samuraijs.com/api/1.0/auth/me`, {...user})
     },
     logout: () => {
         return instance.delete(`https://social-network.samuraijs.com/api/1.0/auth/me`)

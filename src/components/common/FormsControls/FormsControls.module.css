@@ -1,0 +1,32 @@
+.textarea{
+    background: #f5f7fb;
+    border: none;
+    border-radius: 20px;
+    min-height: 2rem;
+    overflow: hidden;
+    padding: 1rem;
+    resize: none;
+    width: 75%;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+.errorSpan{
+    display: flex;
+    color: red;
+}
+.input{
+    background: #f5f7fb;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 1rem;
+    resize: none;
+    width: 75%;
+    outline: none;
+    box-sizing: border-box;
+}
+.error {
+    border:1px solid red;
+}

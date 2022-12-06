@@ -1,15 +1,14 @@
 import {DialogType, MessageType} from "../types/types";
 
 const ADD_MESSAGE = 'ADD-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
 type MessagesPageType={
     dialogs: DialogType[],
     messages: MessageType[],
-    newMessageText: string
+
 }
 type ActionType={
-    type:'ADD-MESSAGE'|'UPDATE-NEW-MESSAGE-TEXT'
-    text:string
+    type:'ADD-MESSAGE'
+    message:string
 }
 
 let initialState = {
@@ -55,26 +54,17 @@ let initialState = {
             {id: 5, message: 'Hi lolz ', isYou: false},
             {id: 6, message: 'Hi lolz ', isYou: true},
             {id: 7, message: 'Hi lolz ', isYou: false}],
-        newMessageText: 'redux handler messages'
+
 
 }
 const dialogsReducer=(state:MessagesPageType=initialState,action:ActionType):MessagesPageType=>{
     switch (action.type){
         case ADD_MESSAGE:
-            let newState1 = {...state,message: [...state.messages]}
-            let newMessage = {id: state.messages.length, message:state.newMessageText, isYou: true};
-            newState1.messages.push(newMessage)
-            newState1.newMessageText=''
-            return newState1
-        case UPDATE_NEW_MESSAGE_TEXT:
-            let newState2 =  {...state}
-            newState2.newMessageText=action.text
-            return newState2
+            return {...state,messages:[...state.messages,{id: state.messages.length, message:action.message, isYou: true}]}
         default:
             return state
     }
 
 }
-export const addMessage = () => ({type: ADD_MESSAGE})
-export const updateNewMessage = (text: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, text: text})
+export const addMessage = (message:string) => ({type: ADD_MESSAGE,message})
 export default dialogsReducer

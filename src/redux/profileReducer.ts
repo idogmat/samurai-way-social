@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {profileAPI} from "../api/api";
 import axios from "axios";
 
-const UPDATE_NEW_PROFILE_TEXT = 'UPDATE-NEW-PROFILE-TEXT';
 const ADD_PROFILE_POST = 'ADD-PROFILE-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
@@ -31,13 +30,12 @@ export type ProfileUserType = {
 } |null
 export type ProfilePageType = {
     posts: PostType[],
-    newPostText: string
     currentProfile:ProfileUserType
     profileStatus:string
 }
 type ActionType = {
-    type: 'UPDATE-NEW-PROFILE-TEXT' | 'ADD-PROFILE-POST' | 'SET-USER-PROFILE' |'SET-USER-STATUS'
-    text: string
+    type:  'ADD-PROFILE-POST' | 'SET-USER-PROFILE' |'SET-USER-STATUS'
+    message: string
     profile:ProfileUserType | null
     status:string
 }
@@ -52,20 +50,13 @@ let initialState = {
     ],
     currentProfile: null,
     profileStatus:'',
-    newPostText: 'redux handler'
 }
 const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
     switch (action.type) {
         case ADD_PROFILE_POST:
             return {
                 ...state,
-                newPostText:'',
-                posts: [{id: state.posts.length, name: 'Yorik', message: state.newPostText, like: 999999}, ...state.posts]
-            }
-        case UPDATE_NEW_PROFILE_TEXT:
-            return {
-                ...state,
-                newPostText: action.text
+                posts: [{id: state.posts.length, name: 'Yorik', message: action.message, like: 999999}, ...state.posts]
             }
         case SET_USER_PROFILE:
             return {
@@ -83,8 +74,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionTyp
 
 }
 
-export const addPost = () => ({type: ADD_PROFILE_POST})
-export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_PROFILE_TEXT, text: text})
+export const addPost = (message:string) => ({type: ADD_PROFILE_POST,message})
 export const setUserProfile = (profile: ProfileUserType) => ({type: SET_USER_PROFILE, profile})
 export const setProfileStatus = (status: string) => ({type: SET_USER_STATUS, status})
 export const getProfileStatusThunkCreator=(userId:string)=>(dispatch: Dispatch) => {
