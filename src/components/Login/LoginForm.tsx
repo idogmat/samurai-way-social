@@ -8,8 +8,8 @@ import {required} from "../../utils/validators";
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return <form onSubmit={props.handleSubmit}>
             <div className={s.inputField}>
-                <Field name={'login'}
-                       placeholder={'Login'}
+                <Field name={'email'}
+                       placeholder={'Email'}
                        component={Input}
                        validate={required}
                        type="text"/>

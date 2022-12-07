@@ -13,7 +13,7 @@ import {
 import {AuthUserStateType, loginUserTC} from "../../redux/authReducer";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 
 export type FormDataType={
     login:string
@@ -28,17 +28,22 @@ const Login = (props:any) => {
         console.log(formData)
         props.loginUserTC(formData)
     }
-    return (
-        <div className={s.loginForm}>
-            <h1>Login</h1>
-            <LoginReduxForm onSubmit={onSubmit}/>
-        </div>
-    );
+    if(props.isAuth){
+        console.log(props.isAuth)
+        return <Redirect to={`/profile`}/>
+        // return <Redirect to={`/profile/${props.id}`}/>
+    } else {
+            return (
+                <div className={s.loginForm}>
+                    <h1>Login</h1>
+                    <LoginReduxForm onSubmit={onSubmit}/>
+                </div>
+            );
+        }
 };
 let mapStateToProps=(state:AppStateType):AuthUserStateType=> state.authReducer
 export default compose<React.ComponentType>(
     connect(
         mapStateToProps,{
             loginUserTC}),
-    // withAuthRedirect
 )(Login)

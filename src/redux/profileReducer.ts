@@ -27,17 +27,17 @@ export type ProfileUserType = {
         small: string,
         large: string
     }
-} |null
+} | null
 export type ProfilePageType = {
     posts: PostType[],
-    currentProfile:ProfileUserType
-    profileStatus:string
+    currentProfile: ProfileUserType
+    profileStatus: string
 }
 type ActionType = {
-    type:  'ADD-PROFILE-POST' | 'SET-USER-PROFILE' |'SET-USER-STATUS'
+    type: 'ADD-PROFILE-POST' | 'SET-USER-PROFILE' | 'SET-USER-STATUS'
     message: string
-    profile:ProfileUserType | null
-    status:string
+    profile: ProfileUserType | null
+    status: string
 }
 let initialState = {
     posts: [{id: 1, name: 'Yorik', message: 'Hi lolz ', like: 5},
@@ -49,7 +49,7 @@ let initialState = {
         {id: 7, name: 'Yorik', message: 'Hi lolz ', like: 5}
     ],
     currentProfile: null,
-    profileStatus:'',
+    profileStatus: '',
 }
 const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
     switch (action.type) {
@@ -66,7 +66,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionTyp
         case SET_USER_STATUS:
             return {
                 ...state,
-                profileStatus:action.status
+                profileStatus: action.status
             }
         default:
             return state
@@ -74,32 +74,32 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionTyp
 
 }
 
-export const addPost = (message:string) => ({type: ADD_PROFILE_POST,message})
+export const addPost = (message: string) => ({type: ADD_PROFILE_POST, message})
 export const setUserProfile = (profile: ProfileUserType) => ({type: SET_USER_PROFILE, profile})
 export const setProfileStatus = (status: string) => ({type: SET_USER_STATUS, status})
-export const getProfileStatusThunkCreator=(userId:string)=>(dispatch: Dispatch) => {
-        profileAPI.getStatus(userId)
-            .then(response => {
-                console.log(response,'GET')
-                    dispatch(setProfileStatus(response.data))
-            }).catch(e=>console.warn(e))
+export const getProfileStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(response => {
+            console.log(response, 'GET')
+            dispatch(setProfileStatus(response.data))
+        }).catch(e => console.warn(e))
 }
-export const updateProfileStatusThunkCreator=(status:string)=> (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status)
-            .then(response => {
-                console.log(response,'PUT')
-                if(response.data.resultCode === 0) {
-                    dispatch(setProfileStatus(status))
-                }
-            }).catch(e=>console.warn(e))
+export const updateProfileStatusThunkCreator = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            console.log(response, 'PUT')
+            if (response.data.resultCode === 0) {
+                dispatch(setProfileStatus(status))
+            }
+        }).catch(e => console.warn(e))
 
 }
-export const getProfileUserThunkCreator=(userId:string)=>(dispatch:Dispatch)=> {
-        if (!userId) userId = '2'
-        profileAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfile(response.data))
-            }).catch(e=>console.warn(e))
+export const getProfileUserThunkCreator = (userId: string) => (dispatch: Dispatch) => {
+    if (!userId) userId = '2'
+    profileAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        }).catch(e => console.warn(e))
 
 }
 

@@ -7,11 +7,11 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
-    ReactDOM.render(
-        <BrowserRouter>
+ReactDOM.render(
+    <BrowserRouter>
         <Provider store={store}>
-             <App/>
+            <App/>
         </Provider>
-        </BrowserRouter>, document.getElementById('root'));
+    </BrowserRouter>, document.getElementById('root'));
 
 

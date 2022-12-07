@@ -1,13 +1,13 @@
 import {FriendType, MenuType} from "../types/types";
 
-type SidebarType={
+type SidebarType = {
     sidebar: {
         friends: FriendType[]
         menu: MenuType[]
     }
 }
 
-const initialState:SidebarType= {
+const initialState: SidebarType = {
     sidebar: {
         friends: [
             {
@@ -36,7 +36,7 @@ const initialState:SidebarType= {
         ]
     }
 }
-const menuReducer=(state=initialState,action:null)=>{
-            return {...state}
+const menuReducer = (state = initialState, action: null) => {
+    return {...state}
 }
 export default menuReducer

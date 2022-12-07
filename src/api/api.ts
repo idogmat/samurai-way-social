@@ -32,14 +32,14 @@ export const profileAPI = {
     }
 }
 export const loginAPI={
-    login: (user:UserLoginType) => {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/auth/me`, {...user})
+    login: (email:string,password:string,rememberMe:boolean=false) => {
+        return instance.post(`/auth/login`, {email,password,rememberMe})
     },
     logout: () => {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+        return instance.delete(`/auth/login`)
     },
     authMe: () => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`,)
+        return instance.get(`/auth/me`,)
             .then(response => response.data)
     }
 }
