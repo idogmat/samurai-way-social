@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
@@ -8,7 +8,6 @@ import {
     logoutUserTC,
     setFetching,
     setUserData,
-    setUserThunkCreator
 } from "../../redux/authReducer";
 
 type UserLoginTypeProps = {
@@ -16,7 +15,6 @@ type UserLoginTypeProps = {
     email: string | null
     login: string | null
     isAuth: boolean
-    setUserThunkCreator: () => void
     setUserData: (user: AuthUserType) => void
     logoutUserTC: () => void
     setFetching: (s: boolean) => void
@@ -24,9 +22,7 @@ type UserLoginTypeProps = {
 
 const HeaderContainer = React.memo((props: UserLoginTypeProps) => {
     console.log('headerCont render')
-    useEffect(() => {
-        props.setUserThunkCreator()
-    }, [])
+
     return <Header isAuth={props.isAuth} name={props.login} logoutUserTC={props.logoutUserTC}/>
 })
 
@@ -38,6 +34,6 @@ export default connect(mapDispatchToProps, {
     setUserData,
     setFetching,
     logoutUser,
-    setUserThunkCreator,
+
     logoutUserTC
 })(HeaderContainer)

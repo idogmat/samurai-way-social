@@ -1,7 +1,6 @@
-import {Dispatch} from "redux";
 import {loginAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {useDispatch} from "react-redux";
+import {AppThunkType} from "./redux-store";
 
 const SET_USER_DATA = 'SET-USER-DATA'
 const SET_FETCHING = 'SET-FETCHING'
@@ -33,13 +32,12 @@ const initialState: AuthUserStateType = {
     isFetching: false,
     isAuth: false
 }
+export type AuthActionType=ReturnType<typeof setUserData>
+|ReturnType<typeof setFetching>
+|ReturnType<typeof logoutUser>
 
-export type setUserDataType = ReturnType<typeof setUserData>
-export type setUserFetchingType = ReturnType<typeof setFetching>
-export type logoutUserType = ReturnType<typeof logoutUser>
 
-
-const authReducer = (state = initialState, action: logoutUserType | setUserDataType | setUserFetchingType) => {
+const authReducer = (state = initialState, action: AuthActionType) => {
 
     switch (action.type) {
         case SET_USER_DATA:
@@ -65,34 +63,36 @@ const authReducer = (state = initialState, action: logoutUserType | setUserDataT
 export const setUserData = (user: AuthUserType) => ({type: SET_USER_DATA, user}) as const
 export const setFetching = (fetch: boolean) => ({type: SET_FETCHING, fetch}) as const
 export const logoutUser = () => ({type: LOGOUT_USER}) as const
-export const setUserThunkCreator = () => (dispatch: Dispatch) => {
+export const setUserThunkCreator = ():AppThunkType => (dispatch) => {
     dispatch(setFetching(false))
-    loginAPI.authMe()
+   return loginAPI.authMe()
         .then(response => {
             console.log(response, 'auth')
             if (response.resultCode === 0) {
                 dispatch(setUserData({...response.data}))
                 dispatch(setFetching(true))
+
             }
         }).catch(err => {
         throw new Error(err)
     })
+
 }
 
-export const loginUserTC = (user: UserLoginType) => (dispatch: Dispatch) => {
+export const loginUserTC = (user: UserLoginType):AppThunkType => (dispatch) => {
     console.log(user)
     loginAPI.login(user.email, user.password, user.rememberMe)
         .then(res => {
             console.log(res)
             if (res.data.resultCode === 0) {
-                setUserThunkCreator()(dispatch)
+                dispatch(setUserThunkCreator())
             } else {
                 //redux-form submit breaker
                 dispatch(stopSubmit("login", {email: res.data.messages, password: res.data.messages}))
             }
         })
 }
-export const logoutUserTC = () => (dispatch: Dispatch) => {
+export const logoutUserTC = ():AppThunkType => (dispatch) => {
     loginAPI.logout()
         .then(res => {
             if (res.data.resultCode === 0) {

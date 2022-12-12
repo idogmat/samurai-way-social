@@ -28,7 +28,8 @@ export type ProfilePropsType = RouteComponentProps<PathParamsType> & ProfileOwnP
 
 const ProfileComponent = (props: ProfilePropsType) => {
     useEffect(() => {
-        let userId = props.match.params.userId || props.id + ''
+        let userId = props.match.params.userId
+        // !userId && props.history.push('/profile/'+props.id)
         props.getProfileUserThunkCreator(userId)
         props.getProfileStatusThunkCreator(userId)
     }, [])

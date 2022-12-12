@@ -1,19 +1,12 @@
 import React from 'react';
-
 import s from './Login.module.scss'
 import {reduxForm} from "redux-form";
 import LoginForm from "./LoginForm";
 import {AppStateType} from "../../redux/redux-store";
-import {
-    addPost,
-    getProfileStatusThunkCreator,
-    getProfileUserThunkCreator,
-    ProfilePageType, updateProfileStatusThunkCreator
-} from "../../redux/profileReducer";
 import {AuthUserStateType, loginUserTC} from "../../redux/authReducer";
 import {compose} from "redux";
 import {connect} from "react-redux";
-import {Redirect, withRouter} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
 export type FormDataType={
     login:string
@@ -29,7 +22,6 @@ const Login = (props:any) => {
         props.loginUserTC(formData)
     }
     if(props.isAuth){
-        console.log(props.isAuth)
         return <Redirect to={`/profile`}/>
         // return <Redirect to={`/profile/${props.id}`}/>
     } else {
