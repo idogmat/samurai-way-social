@@ -23,7 +23,7 @@ type UserLoginTypeProps = {
 const HeaderContainer = React.memo((props: UserLoginTypeProps) => {
     console.log('headerCont render')
 
-    return <Header isAuth={props.isAuth} name={props.login} logoutUserTC={props.logoutUserTC}/>
+    return <Header id={props.id} isAuth={props.isAuth} name={props.login} logoutUserTC={props.logoutUserTC}/>
 })
 
 let mapDispatchToProps = (state: AppStateType) => {

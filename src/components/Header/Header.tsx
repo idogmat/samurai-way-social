@@ -3,6 +3,7 @@ import s from './Header.module.scss'
 import {NavLink} from "react-router-dom";
 import {logoutUserTC} from "../../redux/authReducer";
 type HeaderPropsType={
+    id:number |null
     name:string|null
     isAuth:boolean
     logoutUserTC:()=>void
@@ -25,7 +26,7 @@ const Header=React.memo((props:HeaderPropsType)=>{
 
             <div className={s.loginBlock}>
                 {props.isAuth
-                ? <><NavLink to={'/profile'}>{props.name && props.name}</NavLink>
+                ? <><NavLink to={'/profile/'+props.id}>{props.name && props.name}</NavLink>
                         <NavLink onClick={logout} to={'/login'}>LogOut</NavLink>
                     </>
                     :<NavLink to={'/login'}>Login</NavLink>

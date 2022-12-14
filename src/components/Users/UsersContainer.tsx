@@ -53,6 +53,7 @@ const UsersComponent = React.memo((props: PropsType) => {
 })
 
 let mapStateToProps = (state: AppStateType): UsersType => {
+    console.log('usersMPST')
     return state.usersReducer
 }
 export default compose<React.ComponentType>(
