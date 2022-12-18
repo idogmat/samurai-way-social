@@ -1,5 +1,6 @@
 .dialogs{
  display: grid;
+  height: 100%;
   grid-template-columns: 2fr 10fr;
   .dialogsList{
     border-right: 1px solid #f5f7fb;
@@ -37,25 +38,28 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-height: 80%;
 
     .messagesList{
+      overflow: auto;
+
       display: block;
       width: 100%;
-      height: 85%;
+      height: 80%;
     .message{
       clear: both;
       display: table;
       margin: 5px 0;
       &.yourMessage{
         float: right;
-        background-color: deepskyblue;
+        background-color: #4D4F57FF;
         margin-right: 20px;
         font-size: 25px;
         color: white;
       }
       &.friendMessage{
         float: left;
-        background-color: orchid;
+        background-color: #4d4f57;
         margin-left: 20px;
         font-size: 25px;
         color: white;

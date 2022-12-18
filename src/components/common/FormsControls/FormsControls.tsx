@@ -12,7 +12,6 @@ export const Textarea:FC<TextareaType> = ({input,meta,...props}) => {
     return (<div className={s.inputBlock}>
         {hasError ? <span className={s.errorSpan}>{meta.error}</span> :''}
             <textarea  {...props}{...input} className={s.textarea + " " + (hasError ? s.error : '')}/>
-
     </div>);
 };
 

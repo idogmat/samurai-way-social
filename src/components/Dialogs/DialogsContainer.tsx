@@ -21,17 +21,6 @@ let mapStateProps=(state:AppStateType):MapStatePropsType=>{
 
     }
 }
-// let mapDispatchToProps=(dispatch:(action: any)=>void)=> {
-//     return {
-//         addMessage: () => {
-//             dispatch(addMessageActionCreator())
-//         },
-//         inputChangeMessage: (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-//             dispatch(updateNewMessageActionCreator(e.currentTarget.value))
-//         }
-//     }
-// }
-
 export default compose<React.ComponentType>(
     connect(mapStateProps,{
         addMessage}),

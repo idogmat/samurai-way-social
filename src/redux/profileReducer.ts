@@ -38,11 +38,7 @@ export type ProfileActionType = ReturnType<typeof addPost>
 let initialState = {
     posts: [{id: 1, name: 'Yorik', message: 'Hi lolz ', like: 5},
         {id: 2, name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 3, name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 4, name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 5, name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 6, name: 'Yorik', message: 'Hi lolz ', like: 5},
-        {id: 7, name: 'Yorik', message: 'Hi lolz ', like: 5}
+        {id: 3, name: 'Yorik', message: 'Hi lolz ', like: 5}
     ],
     currentProfile: null,
     profileStatus: '',
@@ -73,30 +69,31 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileAc
 export const addPost = (message: string) => ({type: ADD_PROFILE_POST, message}) as const
 export const setUserProfile = (profile: ProfileUserType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setProfileStatus = (status: string) => ({type: SET_USER_STATUS, status}) as const
-export const getProfileStatusThunkCreator = (userId: string):AppThunkType => (dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(response => {
-            console.log(response, 'GET')
-            dispatch(setProfileStatus(response.data))
-        }).catch(e => console.warn(e))
+export const getProfileStatusThunkCreator = (userId: string):AppThunkType =>async (dispatch) => {
+    let res = await profileAPI.getStatus(userId)
+        try{
+            dispatch(setProfileStatus(res.data))
+        }catch(e){
+            console.warn(e)
+        }
 }
-export const updateProfileStatusThunkCreator = (status: string):AppThunkType => (dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(response => {
-            console.log(response, 'PUT')
-            if (response.data.resultCode === 0) {
+export const updateProfileStatusThunkCreator = (status: string):AppThunkType =>async (dispatch) => {
+    let res = await profileAPI.updateStatus(status)
+        try{
+            if (res.data.resultCode === 0) {
                 dispatch(setProfileStatus(status))
             }
-        }).catch(e => console.warn(e))
-
+        }catch(e){
+            console.warn(e)
+        }
 }
-export const getProfileUserThunkCreator = (userId: string):AppThunkType => (dispatch) => {
-    // if (!userId) userId = '8461'
-    profileAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfile(response.data))
-        }).catch(e => console.warn(e))
-
+export const getProfileUserThunkCreator = (userId: string):AppThunkType =>async (dispatch) => {
+    let res = await profileAPI.getProfile(userId)
+        try{
+            dispatch(setUserProfile(res.data))
+        }catch(e){
+            console.warn(e)
+        }
 }
 
 export default profileReducer

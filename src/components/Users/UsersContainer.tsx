@@ -29,7 +29,6 @@ type PropsType = {
 }
 
 const UsersComponent = React.memo((props: PropsType) => {
-    console.log('Users container')
     useEffect(() => {
         props.getUsersThunkCreator(props.currentPage, props.pageSize)
     }, [])
@@ -53,7 +52,6 @@ const UsersComponent = React.memo((props: PropsType) => {
 })
 
 let mapStateToProps = (state: AppStateType): UsersType => {
-    console.log('usersMPST')
     return state.usersReducer
 }
 export default compose<React.ComponentType>(

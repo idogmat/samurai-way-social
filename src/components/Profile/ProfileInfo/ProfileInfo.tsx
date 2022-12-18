@@ -11,7 +11,7 @@ type ProfileInfoType = {
     updateProfileStatusThunkCreator: (s: string) => void
 }
 
-const ProfileInfo = (props: ProfileInfoType) => {
+const ProfileInfo = React.memo((props: ProfileInfoType) => {
 
     return (
         <>{
@@ -27,5 +27,5 @@ const ProfileInfo = (props: ProfileInfoType) => {
         }
         </>)
 
-}
+});
 export default ProfileInfo

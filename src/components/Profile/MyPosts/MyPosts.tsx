@@ -14,7 +14,7 @@ export type MyPostsPropsType={
     addPost:(m:string)=>void
 }
 
-const MyPosts:FC<MyPostsPropsType> = ({posts,
+const MyPosts:FC<MyPostsPropsType> = React.memo(({posts,
                                           addPost
                                           }) => {
     const dispatch =useDispatch()
@@ -38,22 +38,23 @@ const MyPosts:FC<MyPostsPropsType> = ({posts,
             </div>
         </div>
     );
-};
+});
 const validateLength = maxLengthC(100)
 
 export default MyPosts;
 
 
-const AddPostForm:React.FC<InjectedFormProps<SubmitType>> =(props)=>{
+const AddPostForm:React.FC<InjectedFormProps<SubmitType>> =React.memo((props)=>{
 
     return  <form onSubmit={props.handleSubmit} className={s.sendMessageForm}>
         <Field component={Textarea}
                placeholder={'PostMessage'}
                validate={[required,validateLength]}
                name={'newPostBody'}
+               onKeyDown={(e:any)=> e.key === 'Enter' && props.handleSubmit.call(this,e)}
         />
 
         <button className={s.sendBtn}>Add post</button>
     </form>
-}
+})
 const AddPostFormRedux = reduxForm<SubmitType>({form:'profileAddMessageForm'})(AddPostForm)

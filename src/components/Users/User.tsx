@@ -12,7 +12,6 @@ type PropsType = {
 
 }
 const User = React.memo((props: PropsType) => {
-    console.log('user')
     return <div key={props.user.name}>
         <NavLink to={'/profile/' + props.user.id}>
             <img className={s.userPhoto} src={!!props.user.photos.small ? props.user.photos.small

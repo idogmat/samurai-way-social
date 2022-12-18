@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import s from './ProfileInfo.module.scss'
+import React, {useState} from 'react';
 
 type PropsType = {
     status: string,
     updateProfileStatusThunkCreator: (s: string) => void
 }
-const ProfileStatus = (props: PropsType) => {
+const ProfileStatus = React.memo((props: PropsType) => {
     const [editMode, setEditMode] = useState(true)
     const [status, setStatus] = useState<any>(props.status||' ')
     const editModeForStatus=()=>{
@@ -30,6 +29,6 @@ const ProfileStatus = (props: PropsType) => {
             }
         </div>
     );
-};
+});
 
 export default ProfileStatus;

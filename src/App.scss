@@ -31,6 +31,8 @@ $border:10px;
 
 }
 .content{
+  max-height: 100vh;
+  overflow: hidden;
   grid-area: c;
   background: $blocks-bg;
   border: solid 1px white;

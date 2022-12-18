@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
 export type FormDataType={
+    id: number
     login:string
     password:string
     rememberMe:boolean
@@ -18,12 +19,10 @@ const LoginReduxForm = reduxForm<FormDataType>({
 })(LoginForm)
 const Login = (props:any) => {
     const onSubmit = (formData:FormDataType)=>{
-        console.log(formData)
         props.loginUserTC(formData)
     }
     if(props.isAuth){
-        return <Redirect to={`/profile`}/>
-        // return <Redirect to={`/profile/${props.id}`}/>
+        return <Redirect to={`/profile/${props.id}`}/>
     } else {
             return (
                 <div className={s.loginForm}>

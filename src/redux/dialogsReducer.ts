@@ -44,15 +44,11 @@ let initialState = {
             name: 'Julce',
             img: 'https://cdn.vox-cdn.com/thumbor/0wYP_9aoSn3BXoiJMDtc9VT7YmQ=/0x0:2000x1270/920x613/filters:focal(840x475:1160x795):format(webp)/cdn.vox-cdn.com/uploads/chorus_image/image/69829481/Rick_And_Morty_Season_5_Episode_10_copy.0.jpg'
         }],
-    messages: [{id: 1, message: 'Hi lolz ', isYou: true},
-        {id: 2, message: 'Hi lolz ', isYou: true},
-        {id: 3, message: 'Hi lolz ', isYou: false},
-        {id: 4, message: 'Hi lolz ', isYou: true},
-        {id: 5, message: 'Hi lolz ', isYou: false},
-        {id: 6, message: 'Hi lolz ', isYou: true},
-        {id: 7, message: 'Hi lolz ', isYou: false}],
-
-
+    messages: [{id: 1, message: 'Whatz Up ', isYou: true},
+        {id: 2, message: 'Whatz Up man! ', isYou: true},
+        {id: 3, message: 'Whatz Up man!', isYou: false},
+        {id: 4, message: 'Whatz Up man!', isYou: true}
+]
 }
 const dialogsReducer = (state: MessagesPageType = initialState, action: DialogsActionType): MessagesPageType => {
     switch (action.type) {

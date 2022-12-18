@@ -2,7 +2,7 @@ import React from "react";
 import s from "./Post.module.scss";
 import {PostType} from "../../../../types/types";
 
-const Post =(props:PostType)=>{
+const Post =React.memo((props:PostType)=>{
     return(
         <div className={s.item}>
             <div className={s.imgName}>
@@ -14,8 +14,7 @@ const Post =(props:PostType)=>{
                 <span className={s.like}>Like:{props.like}</span>
             </div>
 
-
         </div>
     )
-}
+})
 export default Post

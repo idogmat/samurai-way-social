@@ -25,7 +25,7 @@ export type AppActionTypes = AuthActionType
     | DialogsActionType
     | ProfileActionType
     | ActionUserType
-export type AppThunkType=ThunkAction<void, AppStateType, unknown, AppActionTypes>
+export type AppThunkType<ReturnType=void>=ThunkAction<ReturnType, AppStateType, unknown, AppActionTypes>
 export default store
 
 // @ts-ignore

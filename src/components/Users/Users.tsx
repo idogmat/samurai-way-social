@@ -14,7 +14,6 @@ type PropsType = {
 
 }
 const Users = React.memo((props: PropsType) => {
-    console.log('Users')
     const mappedUsers = props.users.map((el, i) => {
         return <User key={el.id+i+el.name}
                      user={el}
@@ -22,20 +21,20 @@ const Users = React.memo((props: PropsType) => {
                      setFollowThunkCreator={props.setFollowThunkCreator}/>
     })
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize) - 4350;
+    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
     return (
-        <div>
-            <div>
+        <>
+            <div className={s.pages}>
                 {pages.map((p, i) => <span key={i} onClick={() => props.onPageChanged(p)}
                                            className={props.currentPage === p ? s.currentPage : ''}>{p}</span>)}
             </div>
             <h2>Users</h2>
             {mappedUsers}
-        </div>
+        </>
     );
 })
 

@@ -21,8 +21,6 @@ type UserLoginTypeProps = {
 }
 
 const HeaderContainer = React.memo((props: UserLoginTypeProps) => {
-    console.log('headerCont render')
-
     return <Header id={props.id} isAuth={props.isAuth} name={props.login} logoutUserTC={props.logoutUserTC}/>
 })
 
@@ -34,6 +32,5 @@ export default connect(mapDispatchToProps, {
     setUserData,
     setFetching,
     logoutUser,
-
     logoutUserTC
 })(HeaderContainer)

@@ -5,7 +5,7 @@ import {Input} from "../common/FormsControls/FormsControls";
 import s from './Login.module.scss'
 import {required} from "../../utils/validators";
 
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+const LoginForm: React.FC<InjectedFormProps<FormDataType>> = React.memo((props) => {
     return <form onSubmit={props.handleSubmit}>
             <div className={s.inputField}>
                 <Field name={'email'}
@@ -33,7 +33,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <button className={s.sendBtn}>Login</button>
             </div>
         </form>
-};
+});
 
 
 export default LoginForm;

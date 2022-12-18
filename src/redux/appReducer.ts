@@ -21,10 +21,9 @@ const appReducer = (state = initialState, action: InitialiseActionType) => {
     }
 }
 export const setInitializedSuccess = () => ({type: SET_INITIALIZED}) as const
-export const setInitializeAppTC = ():AppThunkType => (dispatch) => {
-    let dispatchResult = dispatch<any>(setUserThunkCreator())
-    console.log(dispatchResult)
-    dispatchResult.then(() => dispatch<any>(setInitializedSuccess()))
+export const setInitializeAppTC = ():AppThunkType => async (dispatch) => {
+    const dispatchResult = await dispatch(setUserThunkCreator())
+    dispatchResult && dispatch(setInitializedSuccess())
 }
 
 export default appReducer
