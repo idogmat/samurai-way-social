@@ -10,3 +10,29 @@
   overflow: auto;
   width: 100%;
 }
+.paginator {
+  display: flex;
+  margin: 15px;
+}
+
+.paginatorNumbers {
+  display: flex;
+  justify-content: space-around;
+  width: 800px;
+}
+
+.pageNumber {
+  font-size: 25px;
+  margin: 0 11px;
+  cursor: pointer;
+  color: white;
+}
+
+.selectedPage {
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.button {
+  font-size: 40px;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import {UserType} from "../../redux/usersReducer";
 import s from './Users.module.scss'
 import User from "./User";
+import Paginator from "./Paginator";
 
 type PropsType = {
     users: UserType[]
@@ -21,17 +22,18 @@ const Users = React.memo((props: PropsType) => {
                      setFollowThunkCreator={props.setFollowThunkCreator}/>
     })
 
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
-    let pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
     return (
         <>
-            <div className={s.pages}>
-                {pages.map((p, i) => <span key={i} onClick={() => props.onPageChanged(p)}
-                                           className={props.currentPage === p ? s.currentPage : ''}>{p}</span>)}
-            </div>
+            {/*<div className={s.pages}>*/}
+            {/*    {pages.map((p, i) => <span key={i} onClick={() => props.onPageChanged(p)}*/}
+            {/*                               className={props.currentPage === p ? s.currentPage : ''}>{p}</span>)}*/}
+            {/*</div>*/}
+            <Paginator totalItemsCount={props.totalUsersCount}
+                       pageSize={props.pageSize}
+                       currentPage={props.currentPage}
+                       onPageChanged={props.onPageChanged}
+
+            />
             <h2>Users</h2>
             {mappedUsers}
         </>
