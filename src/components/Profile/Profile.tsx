@@ -5,10 +5,15 @@ import MyPosts from "./MyPosts/MyPosts";
 import {ProfilePageType} from "../../redux/profileReducer";
 import s from './Profile.module.scss'
 
-const Profile = (props:ProfilePageType&MapDispatchToPropsType) => {
+const Profile = (props:ProfilePageType&MapDispatchToPropsType& { isOwner: boolean }) => {
     return (
         <div className={s.profileBlock}>
-            <ProfileInfo updateProfileStatusThunkCreator={props.updateProfileStatusThunkCreator} user={props.currentProfile} status={props.profileStatus}/>
+            <ProfileInfo updateProfileStatusThunkCreator={props.updateProfileStatusThunkCreator}
+                         isOwner={props.isOwner}
+                         user={props.currentProfile}
+                         status={props.profileStatus}
+                         savePhoto={props.savePhoto}
+            />
             <MyPosts addPost={props.addPost} posts={props.posts}/>
         </div>
     )

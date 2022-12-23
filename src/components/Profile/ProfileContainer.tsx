@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {
     addPost, getProfileStatusThunkCreator,
     getProfileUserThunkCreator,
-    ProfilePageType, updateProfileStatusThunkCreator
+    ProfilePageType, savePhoto, updateProfileStatusThunkCreator
 } from "../../redux/profileReducer";
 import {AppStateType} from "../../redux/redux-store";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -19,6 +19,7 @@ export type MapDispatchToPropsType = {
     getProfileUserThunkCreator: (id: string) => void
     getProfileStatusThunkCreator: (id: string) => void
     updateProfileStatusThunkCreator: (id: string) => void
+    savePhoto: (file: string) => void
     addPost: (m: string) => void
     id: number
 }
@@ -32,28 +33,25 @@ const ProfileComponent = (props: ProfilePropsType) => {
         let userId = !!props.match.params.userId
             ? props.match.params.userId
             : props.id+''
-        // !userId && props.history.push('/profile/'+props.id)
         props.getProfileUserThunkCreator(userId)
         props.getProfileStatusThunkCreator(userId)
     }, [props.match.params.userId])
-    return <Profile {...props}/>
+    return <Profile {...props} isOwner={!props.match.params.userId}/>
 
 }
-// AuthRedirectComponent(ProfileComponent)
-
 let mapStateToProps = (state: AppStateType): ProfilePageType & AuthUserStateType => {
     return {
         ...state.profileReducer,
         ...state.authReducer
     }
 }
-
-
 export default compose<React.ComponentType>(
     connect(
         mapStateToProps, {
             getProfileUserThunkCreator,
-            addPost, getProfileStatusThunkCreator, updateProfileStatusThunkCreator
+            addPost, getProfileStatusThunkCreator,
+            updateProfileStatusThunkCreator,
+            savePhoto
         }),
     withRouter,
     withAuthRedirect

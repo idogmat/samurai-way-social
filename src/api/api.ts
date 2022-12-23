@@ -1,5 +1,6 @@
 import axios from "axios";
 import {UserLoginType} from "../redux/authReducer";
+import {ProfileUserType, saveProfile} from "../redux/profileReducer";
 
 const key = 'f267d306-2e26-49e4-8305-d841bf1e2061'
 
@@ -29,6 +30,18 @@ export const profileAPI = {
     },
     updateStatus:(status:string)=>{
         return instance.put(`/profile/status`, {status})
+    },
+    savePhoto(photoFile: string) {
+        const formData = new FormData();
+        formData.append('image', photoFile)
+        return instance.put(`/profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    },
+    saveProfile(profile: ProfileUserType) {
+        return instance.put(`profile`, profile);
     }
 }
 export const loginAPI={

@@ -1,11 +1,16 @@
 import {PostType} from "../types/types";
 import {profileAPI} from "../api/api";
 import {AppThunkType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 const ADD_PROFILE_POST = 'ADD-PROFILE-POST';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_USER_STATUS = 'SET-USER-STATUS';
-
+const SET_USER_PHOTO = 'SET_USER_PHOTO';
+export type PhotosType = {
+    small: string
+    large: string
+}
 export type ProfileUserType = {
     aboutMe: string,
     contacts: {
@@ -22,10 +27,7 @@ export type ProfileUserType = {
     lookingForAJobDescription: string,
     fullName: string,
     userId: number,
-    photos: {
-        small: string,
-        large: string
-    }
+    photos: PhotosType
 } | null
 export type ProfilePageType = {
     posts: PostType[],
@@ -33,8 +35,9 @@ export type ProfilePageType = {
     profileStatus: string
 }
 export type ProfileActionType = ReturnType<typeof addPost>
-|ReturnType<typeof setUserProfile>
-|ReturnType<typeof setProfileStatus>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setProfileStatus>
+|ReturnType<typeof setUserPhoto>
 let initialState = {
     posts: [{id: 1, name: 'Yorik', message: 'Hi lolz ', like: 5},
         {id: 2, name: 'Yorik', message: 'Hi lolz ', like: 5},
@@ -60,6 +63,15 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileAc
                 ...state,
                 profileStatus: action.status
             }
+        case SET_USER_PHOTO: {
+            if (action.photos) {
+                return {
+                    ...state, profile: {...state.currentProfile, photos: action.photos}
+                }
+            }
+            return state
+
+        }
         default:
             return state
     }
@@ -69,31 +81,52 @@ const profileReducer = (state: ProfilePageType = initialState, action: ProfileAc
 export const addPost = (message: string) => ({type: ADD_PROFILE_POST, message}) as const
 export const setUserProfile = (profile: ProfileUserType) => ({type: SET_USER_PROFILE, profile}) as const
 export const setProfileStatus = (status: string) => ({type: SET_USER_STATUS, status}) as const
-export const getProfileStatusThunkCreator = (userId: string):AppThunkType =>async (dispatch) => {
+export const setUserPhoto = (photos: PhotosType | null) => {
+    return {
+        type: SET_USER_PHOTO,
+        photos
+    } as const
+}
+export const getProfileStatusThunkCreator = (userId: string): AppThunkType => async (dispatch) => {
     let res = await profileAPI.getStatus(userId)
-        try{
-            dispatch(setProfileStatus(res.data))
-        }catch(e){
-            console.warn(e)
-        }
+    try {
+        dispatch(setProfileStatus(res.data))
+    } catch (e) {
+        console.warn(e)
+    }
 }
-export const updateProfileStatusThunkCreator = (status: string):AppThunkType =>async (dispatch) => {
+export const updateProfileStatusThunkCreator = (status: string): AppThunkType => async (dispatch) => {
     let res = await profileAPI.updateStatus(status)
-        try{
-            if (res.data.resultCode === 0) {
-                dispatch(setProfileStatus(status))
-            }
-        }catch(e){
-            console.warn(e)
+    try {
+        if (res.data.resultCode === 0) {
+            dispatch(setProfileStatus(status))
         }
+    } catch (e) {
+        console.warn(e)
+    }
 }
-export const getProfileUserThunkCreator = (userId: string):AppThunkType =>async (dispatch) => {
+export const getProfileUserThunkCreator = (userId: string): AppThunkType => async (dispatch) => {
     let res = await profileAPI.getProfile(userId)
-        try{
-            dispatch(setUserProfile(res.data))
-        }catch(e){
-            console.warn(e)
-        }
+    try {
+        dispatch(setUserProfile(res.data))
+    } catch (e) {
+        console.warn(e)
+    }
 }
-
+export const savePhoto = (file: string): AppThunkType => async (dispatch ) => {
+    const response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        dispatch(setUserPhoto(response.data.data.photos))
+    }
+}
+export const saveProfile = (profile: ProfileUserType): AppThunkType => async (dispatch, getState) => {
+    const userId = getState().authReducer.id
+        const response = await profileAPI.saveProfile(profile)
+    if (response.data.resultCode === 0) {
+        !!userId && dispatch(getProfileUserThunkCreator(userId+''))
+    } else {
+        dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}));
+        return Promise.reject(response.data.messages[0]);
+    }
+}
 export default profileReducer
