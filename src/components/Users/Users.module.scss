@@ -36,3 +36,16 @@
 .button {
   font-size: 40px;
 }
+.usersList{
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+.userBlock{
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}

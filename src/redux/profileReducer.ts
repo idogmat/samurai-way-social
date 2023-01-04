@@ -113,20 +113,14 @@ export const getProfileUserThunkCreator = (userId: string): AppThunkType => asyn
         console.warn(e)
     }
 }
-export const savePhoto = (file: string): AppThunkType => async (dispatch ) => {
+export const savePhoto = (file: string): AppThunkType => async (dispatch ,getState) => {
     const response = await profileAPI.savePhoto(file)
-    if (response.data.resultCode === 0) {
-        dispatch(setUserPhoto(response.data.data.photos))
-    }
-}
-export const saveProfile = (profile: ProfileUserType): AppThunkType => async (dispatch, getState) => {
     const userId = getState().authReducer.id
-        const response = await profileAPI.saveProfile(profile)
     if (response.data.resultCode === 0) {
-        !!userId && dispatch(getProfileUserThunkCreator(userId+''))
-    } else {
-        dispatch(stopSubmit('edit-profile', {_error: response.data.messages[0]}));
-        return Promise.reject(response.data.messages[0]);
+        console.log(response)
+        dispatch(setUserPhoto(response.data.data.photos))
+        dispatch(getProfileUserThunkCreator(userId+''))
     }
 }
+
 export default profileReducer

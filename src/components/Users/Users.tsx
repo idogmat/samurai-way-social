@@ -35,7 +35,7 @@ const Users = React.memo((props: PropsType) => {
 
             />
             <h2>Users</h2>
-            {mappedUsers}
+            <div className={s.usersList}>{mappedUsers}</div>
         </>
     );
 })

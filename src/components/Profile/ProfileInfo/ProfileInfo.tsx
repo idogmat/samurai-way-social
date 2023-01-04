@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {ChangeEvent, useEffect, useRef} from "react";
 import p from './ProfileInfo.module.scss'
 import Preloader from "../../Preloader/Preloader";
 import ProfileStatus from './ProfileStatus'
@@ -15,13 +15,13 @@ type ProfileInfoType = {
 
 const ProfileInfo = React.memo((props: ProfileInfoType) => {
     // const [editMode, setEditMode] = useState(false);
-    const onMainPhotoSelected = (e: { target: any }) => {
+    const ref = useRef<HTMLInputElement>(null);
+    const onMainPhotoSelected = (e: ChangeEvent<any>) => {
         if (e.target.files.length) {
-            console.log(e.target.files)
             props.savePhoto(e.target.files[0])
         }
     }
-    const ref = useRef<HTMLInputElement>(null)
+
     return (
         <>{
             !!props.user ?
@@ -31,10 +31,16 @@ const ProfileInfo = React.memo((props: ProfileInfoType) => {
                     <img className={p.userPhoto} src={props.user.photos.small || defaultPhoto} alt="photos.small"/>
                     <h3>{props.user.fullName}</h3>
                     <p>{props.user.aboutMe}</p>
-                    {props.isOwner && <input
+
+                    {props.isOwner && <><button
+                        onClick={() => ref.current?.click()}
+                    >LoadPhoto</button><input
                         type={'file'}
-                        onChange={(e)=>onMainPhotoSelected(e)}
-                    />}
+                        accept={'image/*'}
+                        style={{display:"none"}}
+                        ref={ref}
+                        onChange={onMainPhotoSelected}
+                    /></>}
 
                 </div>
                 : <Preloader/>
