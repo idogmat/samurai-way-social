@@ -13,7 +13,7 @@ export type FormDataType = {
   login: string
   password: string
   rememberMe: boolean
-  captcha:string|null
+  captcha: string | null
 }
 const LoginReduxForm = reduxForm<FormDataType>({
   form: 'login'

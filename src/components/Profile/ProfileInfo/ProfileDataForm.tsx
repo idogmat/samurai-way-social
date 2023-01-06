@@ -61,7 +61,7 @@ const ProfileDataForm:FC<InjectedFormProps<ProfileUserType>> = ({handleSubmit, i
             <b>About me: </b> {createField('About me', 'aboutMe', [], Textarea)}
         </div>
         <div>Contacts: {Object.keys(initialValues?.contacts ?? {}).map((key) => {
-            return <div>
+            return <div key={key}>
                 <b>{key}:{createField(key,"contacts."+key,[],Input)}</b>
             </div>
         })}</div>
