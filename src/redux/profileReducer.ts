@@ -118,9 +118,17 @@ export const savePhoto = (file: string): AppThunkType => async (dispatch, getSta
   const response = await profileAPI.savePhoto(file)
   const userId = getState().authReducer.id
   if (response.data.resultCode === 0) {
-    console.log(response)
     dispatch(setUserPhoto(response.data.data.photos))
     dispatch(getProfileUserThunkCreator(userId + ''))
+  }
+}
+export const saveProfile = (formData: ProfileUserType): AppThunkType => async (dispatch, getState) => {
+  const response = await profileAPI.saveProfile(formData)
+  const userId = getState().authReducer.id
+  if (response.data.resultCode === 0) {
+    dispatch(getProfileUserThunkCreator(userId + ''))
+  } else{
+    console.log('error')
   }
 }
 

@@ -2,7 +2,7 @@ import React from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MapDispatchToPropsType} from "./ProfileContainer";
 import MyPosts from "./MyPosts/MyPosts";
-import {ProfilePageType} from "../../redux/profileReducer";
+import {ProfilePageType, saveProfile} from "../../redux/profileReducer";
 import s from './Profile.module.scss'
 
 const Profile = (props:ProfilePageType&MapDispatchToPropsType& { isOwner: boolean }) => {
@@ -13,6 +13,7 @@ const Profile = (props:ProfilePageType&MapDispatchToPropsType& { isOwner: boolea
                          user={props.currentProfile}
                          status={props.profileStatus}
                          savePhoto={props.savePhoto}
+                         saveProfile={props.saveProfile}
             />
             <MyPosts addPost={props.addPost} posts={props.posts}/>
         </div>

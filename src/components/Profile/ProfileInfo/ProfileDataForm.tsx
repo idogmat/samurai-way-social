@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Field, InjectedFormProps, reduxForm, WrappedFieldMetaProps, WrappedFieldProps} from 'redux-form';
-import {ProfileUserType} from "../../../redux/profileReducer";
+import {ContactsType, ProfileUserType} from "../../../redux/profileReducer";
 
 type FormControlPropsType = {
     meta: WrappedFieldMetaProps
@@ -41,8 +41,7 @@ export const createField = (placeholder: string | null, name: string, validators
       /> {text}
   </div>
 )
-const ProfileDataForm = (props: InjectedFormProps<ProfileUserType>) => {
-    const {handleSubmit, initialValues} = props
+const ProfileDataForm:FC<InjectedFormProps<ProfileUserType>> = ({handleSubmit, initialValues} ) => {
     return <form onSubmit={handleSubmit}>
         <div>
             <button onClick={handleSubmit}>save</button>
@@ -61,6 +60,11 @@ const ProfileDataForm = (props: InjectedFormProps<ProfileUserType>) => {
         <div>
             <b>About me: </b> {createField('About me', 'aboutMe', [], Textarea)}
         </div>
+        <div>Contacts: {Object.keys(initialValues?.contacts ?? {}).map((key) => {
+            return <div>
+                <b>{key}:{createField(key,"contacts."+key,[],Input)}</b>
+            </div>
+        })}</div>
     </form>
 }
 

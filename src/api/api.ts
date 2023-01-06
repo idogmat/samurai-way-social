@@ -38,18 +38,25 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    saveProfile(formData:any ) {
+        return instance.put(`/profile`, formData)
     }
 }
 export const loginAPI={
-    login: (email:string,password:string,rememberMe:boolean=false) => {
-        return instance.post(`/auth/login`, {email,password,rememberMe})
+    login: (email:string,password:string,rememberMe:boolean=false,captcha:string|null=null) => {
+        return instance.post(`/auth/login`, {email,password,rememberMe,captcha})
     },
     logout: () => {
         return instance.delete(`/auth/login`)
     },
     authMe: () => {
-        return instance.get(`/auth/me`,)
+        return instance.get(`/auth/me`)
             .then(response => response.data)
+    },
+    getCaptchaUrl: () => {
+        return instance.get(`/security/get-captcha-url`)
+
     }
 }
 

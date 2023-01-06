@@ -8,33 +8,36 @@ import {compose} from "redux";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
-export type FormDataType={
-    id: number
-    login:string
-    password:string
-    rememberMe:boolean
+export type FormDataType = {
+  id: number
+  login: string
+  password: string
+  rememberMe: boolean
+  captcha:string|null
 }
 const LoginReduxForm = reduxForm<FormDataType>({
-    form: 'login'
+  form: 'login'
 })(LoginForm)
-const Login = (props:any) => {
-    const onSubmit = (formData:FormDataType)=>{
-        props.loginUserTC(formData)
-    }
-    if(props.isAuth){
-        return <Redirect to={`/profile/${props.id}`}/>
-    } else {
-            return (
-                <div className={s.loginForm}>
-                    <h1>Login</h1>
-                    <LoginReduxForm onSubmit={onSubmit}/>
-                </div>
-            );
-        }
+const Login = (props: any) => {
+  const onSubmit = (formData: FormDataType) => {
+    props.loginUserTC(formData)
+  }
+  if (props.isAuth) {
+    return <Redirect to={`/profile/${props.id}`}/>
+  } else {
+    return (
+      <div className={s.loginForm}>
+        <h1>Login</h1>
+        <LoginReduxForm onSubmit={onSubmit} initialValues={props.captcha}/>
+
+      </div>
+    );
+  }
 };
-let mapStateToProps=(state:AppStateType):AuthUserStateType=> state.authReducer
+let mapStateToProps = (state: AppStateType): AuthUserStateType => state.authReducer
 export default compose<React.ComponentType>(
-    connect(
-        mapStateToProps,{
-            loginUserTC}),
+  connect(
+    mapStateToProps, {
+      loginUserTC
+    }),
 )(Login)
