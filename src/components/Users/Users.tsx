@@ -24,10 +24,6 @@ const Users = React.memo((props: PropsType) => {
 
     return (
         <>
-            {/*<div className={s.pages}>*/}
-            {/*    {pages.map((p, i) => <span key={i} onClick={() => props.onPageChanged(p)}*/}
-            {/*                               className={props.currentPage === p ? s.currentPage : ''}>{p}</span>)}*/}
-            {/*</div>*/}
             <Paginator totalItemsCount={props.totalUsersCount}
                        pageSize={props.pageSize}
                        currentPage={props.currentPage}

@@ -7,7 +7,15 @@ import {required} from "../../utils/validators";
 
 const LoginForm: React.FC<InjectedFormProps<any>> = React.memo(({handleSubmit,initialValues}) => {
   return <><form onSubmit={handleSubmit}>
-            <div className={s.inputField}>
+      <a
+          href={"https://social-network.samuraijs.com/"}
+          target={"_blank"}
+      >
+          To log in get registered here
+      </a>
+      <p>Email: free@samuraijs.com</p>
+      <p>Password: free</p>
+      <div className={s.inputField}>
                 <Field name={'email'}
                        placeholder={'Email'}
                        component={Input}
